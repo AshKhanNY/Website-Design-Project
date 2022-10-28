@@ -96,8 +96,8 @@ a{
 .signup{
     background: #3577ff;
     border-radius: 6px;
-    box-shadow: 0 0 0 rgb(8, 150, 230 / 60%);
-    color: rgb(255, 255, 255,) !important;
+    box-shadow: 0 0 0 rgb(8 150 230 / 60%);
+    color: rgb(255, 255, 255) !important;
     font-size: 1rem;
     font-weight:800;
     margin-right: -70px;
