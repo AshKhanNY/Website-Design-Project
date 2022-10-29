@@ -28,6 +28,8 @@ app.get("/", (req, res) => {
     res.json({ message: "Welcome to anime list." });
 });
 
+require("./app/routes/anime.routes")(app);
+
 
 // set pport, listen for requests
 const PORT = process.env.PORT || 8080;
