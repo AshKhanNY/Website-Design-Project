@@ -8,7 +8,7 @@ exports.create = (req, res) =>{
     // Validate the request
     if(!req.body.title) {
         res.status(400).send({
-            message: "Content ca not be empty."
+            message: "Content cannot be empty."
         });
         return;
     }
