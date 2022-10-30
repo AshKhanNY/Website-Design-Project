@@ -1,5 +1,35 @@
 *{ box-sizing: border-box }
 
+#root{
+    margin-top: 75px;
+    overflow: hidden;
+}
+
+@media(max-height: 920px){
+    #root{
+        margin-top: 75px;
+    }
+}
+
+html{
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+}
+
+div{
+    display: block;
+}
+
+body{
+    background: rgb(237, 241, 245);
+    color: rgb(92, 114, 138);
+    font-family: Overpass, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    font-size: 1.6rem;
+    height: 100%;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
 :before{
     box-sizing: border-box
 }
@@ -205,4 +235,100 @@ span{
     100%{
         transform: none;
     }
+}
+
+/*
+Login page
+*/
+form{
+    display: block;
+    margin-top: 0em;
+}
+input{
+    overflow: visible;
+    font-family: sans-serif;
+    margin: 0;
+}
+.page-content{
+    min-height: 100vh;
+}
+
+.auth-form-unscoped .form {
+    max-width: 400px;
+    width: 100%;
+    background: rgb(250, 250, 250);
+    border-radius: 4px;
+    padding: 40px;
+    text-align: center;
+    margin-top: 60px;
+}
+
+.auth-form-unscoped .title{
+    font-size: 2.4rem;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 60px;
+}
+
+.auth-form-unscoped .al-input{
+    background: rgba(237, 241, 245, .7);
+    border-radius: 4px;
+    border: 0;
+    box-shadow: none;
+    color: rgb(92, 114, 138);
+    font-size: 1rem;
+    font-weight: 600;
+    height: 40px;
+    line-height: 40px;
+    margin-bottom: 25px;
+    padding: 0 15px;
+    width: 100%;
+}
+
+.auth-form-unscoped .al-input:focus{
+    box-shadow: none;
+    outline: 0;
+}
+
+.auth-form-unscoped .submit{
+    background: rgb(61, 180, 242);
+    border-radius: 3px;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 10px;
+    padding: 10px 30px;
+}
+
+.auth-form-unscoped .link{
+    display: block;
+    font-size: 1rem;
+    margin-top: 20px;
+    color: rgb(146, 153, 161)
+}
+
+.auth-form-unscoped .link.signup-2{
+    margin-top: 80px;
+}
+
+.auth-form-unscoped .link.signup-2 span{
+    color: rgb(61, 180, 242);
+}
+
+@media (min-width: 1540px){
+    .container{
+        max-width: 1520px;
+        padding-left: 100px;
+        padding-right: 100px;
+    }
+}
+
+.container{
+    margin: 0 auto;
+    min-width: 320px;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
 }
