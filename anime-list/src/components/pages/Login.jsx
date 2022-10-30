@@ -6,7 +6,7 @@ const Login = () => {
         <div className="page-content">
             <div className="auth-form-unscoped">
                 <div className="form container">
-                    <div className="title">Signup to "Name of the site" </div>
+                    <div className="title">Login</div>
                     <form>
                         <input placeHolder="Email" className="al-input"></input>
                         <input type="password" placeHolder="Password" className="al-input"></input>
