@@ -6,6 +6,7 @@ import Home from './components/pages/Home';
 import Anime from './components/pages/Anime';
 import Login from './components/pages/Login';
 import Signup from './components/pages/Signup';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
