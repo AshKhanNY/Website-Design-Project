@@ -1,14 +1,24 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-const Navbar = () =>{
+import AuthService from '../services/auth.service';
+
+const Navbar = (props) =>{
+    let navigate =useNavigate();
+
+    const logOut = () => {
+        AuthService.logout();
+        navigate("/login")
+        window.location.reload();
+    };
+
     return(
         <div className="nav nav-unscoped" data-nav>
             <div className="wrap guess" data-nav>
                 <a href="/" className="logo link-active">LOGO</a>
                 <div className="links" data-nav>
                     <span className="browse-wrap" data-nav>
-                        <Link to="/search" className="Link" data-nav>Search</Link>
+                        <Link to="/search" className="link" data-nav>Search</Link>
                         <div className="dropdown" data-nav>
                             <div className="primary-links" data-nav>
                                 <div className="primary-link">
@@ -25,8 +35,17 @@ const Navbar = () =>{
                     </span>
                     <Link to="/social" className="link" data-nav>Social</Link>
                     <Link to="/forum" className="link" data-nav>Forum</Link>
-                    <Link to="/login" className="link login" data-nav>Login</Link>
-                    <Link to="/signup" className="link signup" data-nav>Sign up</Link>
+                    {props.currentUser ? (
+                        <>
+                            <Link to="/profile" className= "link login" data-nav>{props.currentUser.username}</Link>
+                            <Link to="/login" className="link signup" data-nav onClick={logOut}>Log out</Link>
+                        </>
+                    ) : (
+                        <>
+                            <Link to="/login" className="link login" data-nav>Login</Link>
+                            <Link to="/signup" className="link signup" data-nav>Sign up</Link>
+                        </>
+                    )}
                 </div>
             </div>
         </div>

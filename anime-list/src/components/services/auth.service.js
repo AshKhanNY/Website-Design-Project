@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useNavigate  } from "react-router-dom";
 
 const API_URL = "http://localhost:8080/api/auth/";
 
@@ -11,7 +12,8 @@ const register = (username, email, password) => {
 };
 
 const login = (username, password) => {
-    return axios(API_URL + "signin", {
+    console.log("executing login");
+    return axios.post(API_URL + "signin", {
         username,
         password,
     })
@@ -25,7 +27,7 @@ const login = (username, password) => {
 };
 
 const logout = () => {
-    localStorage.removeItem("user")
+    localStorage.removeItem("user");
 };
 
 const getCurrentUser = () =>{
