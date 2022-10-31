@@ -300,6 +300,7 @@ input{
     font-weight: 600;
     margin-top: 10px;
     padding: 10px 30px;
+    border: 0;
 }
 
 .auth-form-unscoped .link{
