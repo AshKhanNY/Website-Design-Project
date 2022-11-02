@@ -11,6 +11,8 @@ import Anime from "./components/pages/Anime";
 import Login from "./components/pages/Login";
 import Signup from "./components/pages/Signup";
 import Profile from "./components/pages/Profile";
+import AnimeList from "./components/pages/AnimeList";
+import AddAnime from "./components/pages/AddAnime";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
@@ -42,10 +44,12 @@ function App() {
       <Navbar {...props} />
       <Routes>
         <Route path='/' exact element={ <Home /> } />
-        <Route path='/anime' element={ <Anime /> } />
+        <Route path='/animes/:id' element={ <Anime /> } />
         <Route path='/login' element={ <Login /> }/>
         <Route path='/signup' element={ <Signup /> } />
         <Route path='/profile' element={ <Profile /> } />
+        <Route path='/my-list' element={ <AnimeList /> } />
+        <Route path='/add-anime' element={ <AddAnime /> } />
       </Routes>
     </Router>
   );

@@ -33,10 +33,12 @@ const Navbar = (props) =>{
                             </div>
                         </div>
                     </span>
-                    <Link to="/social" className="link" data-nav>Social</Link>
-                    <Link to="/forum" className="link" data-nav>Forum</Link>
                     {props.currentUser ? (
                         <>
+                            <Link to="/my-list" className="link" data-nav>My list</Link>
+                            <Link to="/add-anime" className="link" data-nav>Add to list</Link>
+                            <Link to="/social" className="link" data-nav>Social</Link>
+                            <Link to="/forum" className="link" data-nav>Forum</Link>
                             <Link to="/profile" className= "link login" data-nav>{props.currentUser.username}</Link>
                             <Link to="/login" className="link signup" data-nav onClick={logOut}>Log out</Link>
                         </>

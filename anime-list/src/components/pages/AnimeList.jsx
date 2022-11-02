@@ -26,7 +26,7 @@ const AnimeList = () => {
                 console.log(response.data);
             })
             .catch(err => {
-                console.log(e);
+                console.log(err);
             });
     };
 

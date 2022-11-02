@@ -16,19 +16,19 @@ const AddAnime = () => {
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setAnime({ ...anime, [name]: value});
-    } ;
+    };
 
-    const savetutorial = () => {
+    const saveAnime = () => {
         var data = {
             title: anime.title,
             description: anime.description
         };
 
-        AnimeService.create(data)
+        AnimeService.create(JSON.stringify(data))
             .then(response => {
                 setAnime({
-                    id = response.data.id,
-                    title: response.data.title;
+                    id : response.data.id,
+                    title: response.data.title,
                     description: response.data.description,
                     published: response.data.published
                 });
@@ -50,9 +50,9 @@ const AddAnime = () => {
             {submitted ? (
                 <div>
                     <h4>You submitted successfully</h4>
-                    <buton className="btn btn-success" onClick={newAnime}>
+                    <button className="btn btn-success" onClick={newAnime}>
                         Add
-                    </buton>
+                    </button>
                 </div>
             ) : (
                 <div>
@@ -60,17 +60,17 @@ const AddAnime = () => {
                         <label htmlFor="title">Title</label>
                         <input 
                             type="text"
+                            name="title"
                             className="form-control"
                             id="title"
                             required
                             value={anime.title}
                             onChange={handleInputChange}
-                            name="title"
                         />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="description">Title</label>
+                        <label htmlFor="description">Description</label>
                         <input 
                             type="text"
                             className="form-control"

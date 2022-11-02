@@ -84,7 +84,7 @@ const Signup = () => {
         if (checkBtn.current.context._errors.length === 0) {
             AuthService.register(username, email, password).then(
                 (response) => {
-                    setMessage(response.data);
+                    setMessage(response.data.message);
                     setSuccessful(true);
                 },
                 (error) => {

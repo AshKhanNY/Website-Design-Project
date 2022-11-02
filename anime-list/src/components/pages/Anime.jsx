@@ -122,7 +122,7 @@ const Anime = (props) => {
               <button className="badge badge-primary mr-2" onClick={() => updatePublished(true)}>Publish</button>
             )}
 
-            <button className="badge badge-danger mr-2" onClick={() => deleteAnime}>Delete</button>
+            <button className="badge badge-danger mr-2" onClick={deleteAnime}>Delete</button>
 
             <button type="submit" className="badge badge-success" onClick={updateAnime}>Update</button>
             <p>{message}</p>
