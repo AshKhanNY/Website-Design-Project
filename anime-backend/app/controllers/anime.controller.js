@@ -8,7 +8,7 @@ exports.create = (req, res) =>{
     // Validate the request
     if(!req.body.title) {
         res.status(400).send({
-            message: "Content cannot be empty."
+            message: req.headers
         });
         return;
     }
@@ -19,6 +19,8 @@ exports.create = (req, res) =>{
         description: req.body.description,
         published: req.body.published? req.body.published : false
     };
+
+    console.log("about to create anime")
 
     // save it in the database
     Anime.create(anime)
