@@ -12,8 +12,12 @@ const Navbar = (props) =>{
         window.location.reload();
     };
 
+    const transStyle = {
+        transition: "background 0.8s ease 0s, top 0.5s ease 0s"
+      };
+
     return(
-        <div className="nav nav-unscoped" data-nav>
+        <div className={props.scrolDir? "nav nav-unscoped hidden" : "nav nav-unscoped" } style={transStyle} data-nav>
             <div className="wrap guess" data-nav>
                 <a href="/" className="logo link-active">LOGO</a>
                 <div className="links" data-nav>

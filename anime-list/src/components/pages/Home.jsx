@@ -22,7 +22,7 @@ const Home = () => {
     }, []);
 
     return(
-        <div className="container">
+        <div className="page-content">
             <header className="empty">
                 <h3>{content}</h3>
             </header>
