@@ -76,7 +76,7 @@ const Login = () => {
                     <div className="title">Login</div>
                     <Form onSubmit={handleLogin} ref={form}>
                         <Input 
-                            placeholder="Email" 
+                            placeholder="Username" 
                             className="al-input" 
                             name="username"
                             value={username}

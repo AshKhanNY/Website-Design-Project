@@ -115,6 +115,7 @@ a{
     width: 100%;
 }
 
+
 .link[data-nav]{
     letter-spacing: .01em;
     padding: 18px 16px;
@@ -128,12 +129,16 @@ a{
     color: inherit;
 }
 
+.link[data-nav]:hover{
+    color: white;
+}
+
 .login[data-nav]{
     margin-left:70px;
     padding-right: 24px;
 }
 
-.signup{
+.signup[data-nav]{
     background: #3577ff;
     border-radius: 6px;
     box-shadow: 0 0 0 rgb(8 150 230 / 60%);
@@ -143,6 +148,12 @@ a{
     margin-right: -70px;
     padding: 10px 15px !important;
     transition: box-shadow .6s ease,transform .2s ease-in-out !important;
+}
+
+.signup[data-nav]:hover{
+   box-shadow: 0 2px 10px rgb(8 150 230 / 60%);
+   color: rgb(255, 255, 255);
+   transform: scale(1.03);
 }
 
 Link{

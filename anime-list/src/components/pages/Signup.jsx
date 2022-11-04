@@ -111,7 +111,7 @@ const Signup = () => {
                         {!successful && (
                             <div>
                                 <Input 
-                                    placeholder="username" 
+                                    placeholder="Username" 
                                     className="al-input"
                                     name="username"
                                     value={username}
@@ -129,7 +129,7 @@ const Signup = () => {
                                 />
 
                                 <Input 
-                                    placeholder="password"
+                                    placeholder="Password"
                                     type="password" 
                                     className="al-input"
                                     name="password"
@@ -149,7 +149,7 @@ const Signup = () => {
                         <CheckButton style={{ display: "none"}} ref={checkBtn} />
                     </Form>
                     <Link to="/login" className="link signup-2">
-                        Already have an account??
+                        Already have an account?
                         <span> Log in</span>
                     </Link>
                 </div>
