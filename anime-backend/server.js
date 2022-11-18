@@ -1,5 +1,5 @@
 const express = require("express");
-const bodyParser = require("body-parser")
+const bodyParser = require("body-parser")//Not necessary as it is included in the express.json(). However, I will keep it in case of errors
 const cors = require("cors");
 
 const app = express();
@@ -36,6 +36,7 @@ app.get("/", (req, res) => {
 require("./app/routes/anime.routes")(app);
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
+require("./app/routes/myanime.routes")(app);
 
 
 // set pport, listen for requests

@@ -5,6 +5,7 @@ import AuthService from '../services/auth.service';
 
 const Navbar = (props) =>{
     let navigate =useNavigate();
+    const user = AuthService.getCurrentUser();
 
     const logOut = () => {
         AuthService.logout();
@@ -39,6 +40,8 @@ const Navbar = (props) =>{
                     </span>
                     {props.currentUser ? (
                         <>
+                            <Link to={ "/myplist/" + user.id } className="link" data-nav>plist</Link>
+                            <Link to="/addplist" className="link" data-nav>Add to plist</Link>
                             <Link to="/my-list" className="link" data-nav>My list</Link>
                             <Link to="/add-anime" className="link" data-nav>Add to list</Link>
                             <Link to="/social" className="link" data-nav>Social</Link>

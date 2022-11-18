@@ -23,6 +23,11 @@ db.sequelize = sequelize;
 db.animes = require("./anime.model.js")(sequelize, Sequelize);
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
+db.myanime = require("../models/myanime.model.js")(sequelize, Sequelize);
+
+db.myanime.belongsTo(db.user, {
+    foreignKey: "userId",
+});
 
 db.role.belongsToMany(db.user, {
     through: "user_roles",

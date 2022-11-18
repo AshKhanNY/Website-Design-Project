@@ -10,24 +10,8 @@ const get = (id) => {
 };
 
 const create = (data) => {
-    console.log("about t send post")
-    console.log(data)
     return http.post("/animes", data);
 };
-// const create = (data) => {
-//     return (async() => {
-//         const raw = await fetch('http://localhost:8080/api/animes', {
-//             method: 'POST',
-//             headers: {
-//                 'Accpet': 'application/json',
-//                 'Content-Type': 'application/json'
-//             },
-//             body: data
-//         });
-//         const content = await raw.json();
-//         return content;
-//     })();
-// };
 
 const update = (id, data) => {
     return http.put(`/animes/${id}`, data);

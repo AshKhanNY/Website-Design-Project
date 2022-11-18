@@ -12,7 +12,9 @@ import Login from "./components/pages/Login";
 import Signup from "./components/pages/Signup";
 import Profile from "./components/pages/Profile";
 import AnimeList from "./components/pages/AnimeList";
+import MyAnimeList from "./components/pages/MyAnimeList";
 import AddAnime from "./components/pages/AddAnime";
+import AddMyAnime from "./components/pages/AddMyAnime";
 import Footer from "./components/layout/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -74,19 +76,23 @@ function App() {
     scrolDir: scrollDir
   }
   return (
-    <Router>
-      <Navbar {...props} />
-      <Routes>
-        <Route path='/' exact element={ <Home /> } />
-        <Route path='/animes/:id' element={ <Anime /> } />
-        <Route path='/login' element={ <Login /> }/>
-        <Route path='/signup' element={ <Signup /> } />
-        <Route path='/profile' element={ <Profile /> } />
-        <Route path='/my-list' element={ <AnimeList /> } />
-        <Route path='/add-anime' element={ <AddAnime /> } />
-      </Routes>
-      <Footer />
-    </Router>
+      <Router>
+        <Navbar {...props} />
+        <div className="page-content">
+          <Routes>
+            <Route path='/' exact element={ <Home /> } />
+            <Route path='/animes/:id' element={ <Anime /> } />
+            <Route path='/login' element={ <Login /> }/>
+            <Route path='/signup' element={ <Signup /> } />
+            <Route path='/profile' element={ <Profile /> } />
+            <Route path='/my-list' element={ <AnimeList /> } />
+            <Route path='/myplist/:id' element={ <MyAnimeList /> } />
+            <Route path='/add-anime' element={ <AddAnime /> } />
+            <Route path='/addplist/' element={ <AddMyAnime />} />
+          </Routes>
+         </div> 
+        <Footer />
+      </Router>
   );
 }
 
