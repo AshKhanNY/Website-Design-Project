@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser")//Not necessary as it is included in the express.json(). However, I will keep it in case of errors
 const cors = require("cors");
+var bcrypt = require("bcryptjs");
 
 const app = express();
 

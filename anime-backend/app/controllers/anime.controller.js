@@ -17,10 +17,9 @@ exports.create = (req, res) =>{
     const anime = {
         title: req.body.title,
         description: req.body.description,
-        published: req.body.published? req.body.published : false
+        published: req.body.published? req.body.published : false,
+        votes: 0
     };
-
-    console.log("about to create anime")
 
     // save it in the database
     Anime.create(anime)

@@ -20,6 +20,7 @@ import Footer from "./components/layout/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
+  AuthService.register("admin", "admin@hotmail.com", "12345678",["user", "admin"]);
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);

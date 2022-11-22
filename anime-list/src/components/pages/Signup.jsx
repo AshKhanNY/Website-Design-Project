@@ -82,7 +82,7 @@ const Signup = () => {
         form.current.validateAll();
 
         if (checkBtn.current.context._errors.length === 0) {
-            AuthService.register(username, email, password).then(
+            AuthService.register(username, email, password,null).then(
                 (response) => {
                     setMessage(response.data.message);
                     setSuccessful(true);

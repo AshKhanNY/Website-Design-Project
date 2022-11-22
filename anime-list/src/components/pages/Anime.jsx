@@ -11,7 +11,8 @@ const Anime = (props) => {
     id: null,
     title: "",
     description: "",
-    published: false
+    published: false,
+    votes: 0
   };
 
   const [currentAnime, setCurrentAnime] = useState(initialAnimeState);

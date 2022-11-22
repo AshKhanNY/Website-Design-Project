@@ -63,6 +63,40 @@ const AnimeList = () => {
             });
     };
 
+    const upVote = () => {
+        currentAnime.votes = (parseInt(currentAnime.votes) + 1).toString();
+
+        AnimeService.update(currentAnime.id, currentAnime)
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+
+        retrieveAnimes();
+        setActiveAnnime(currentAnime, currentIndex);
+    }
+
+    const downVote = () => {
+        if(parseInt(currentAnime.votes) < 1){
+            return;
+        }
+
+        currentAnime.votes = (parseInt(currentAnime.votes) - 1).toString();
+
+        AnimeService.update(currentAnime.id, currentAnime)
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+
+        retrieveAnimes();
+        setActiveAnnime(currentAnime, currentIndex);
+    }
+
     return (
         <div className="list row">
             <div className="col-md-8">
@@ -90,14 +124,14 @@ const AnimeList = () => {
 
                 <ul>
                     {animes &&
-                     animes.map((anime, index) => (
-                        <li 
+                     animes.sort((el1,el2) => el2.votes.toString().localeCompare(el1.votes.toString(), undefined, {numeric: true})).map((anime, index) =>
+                        <li key={index}
                           className={"list-group-item " + (index === currentIndex ? "active" : "")}
                           onClick={() => setActiveAnnime(anime,index)}
                           >
                             {anime.title}
                         </li>
-                     ))}
+                     )}
                 </ul>
 
                 <button className="m-3 btn btn-sm btn-danger" onClick={removeAllAnimes}>
@@ -125,6 +159,18 @@ const AnimeList = () => {
                                 <strong>Status:</strong>
                             </label>{" "}
                             {currentAnime.published ? "Published": "Pending"}
+                        </div>
+                        <div>
+                            <label>
+                                <strong>Votes:</strong>
+                            </label>{" "}
+                            {currentAnime.votes}
+                        </div>
+                        <div className="badge badge-success mr-2 votes" onClick={upVote}>
+                            UPVOTE
+                        </div>
+                        <div className="badge badge-danger mr-2 votes" onClick={downVote}>
+                            DOWNVOTE
                         </div>
                         <Link to={"/animes/" + currentAnime.id} className="badge badge-warning">
                             Edit

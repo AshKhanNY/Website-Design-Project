@@ -447,3 +447,7 @@ h2[data-nav-2]{
 section{
     display: block;
 }
+
+.votes{
+    cursor: pointer;
+}
