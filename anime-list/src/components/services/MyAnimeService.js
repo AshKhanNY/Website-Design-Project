@@ -6,7 +6,7 @@ const getAll = (id) => {
 }
 
 const get = (id) => {
-    return http.get(`/myanimes/${id}`);
+    return http.get(`/myanimes/by/${id}`);
 };
 
 const create = (data) => {
@@ -25,8 +25,8 @@ const removeAll = () => {
     return http.delete(`/myanimes`);
 };
 
-const findByTitle = (title) => {
-    return http.get(`/myanimes?title=${title}`);
+const findByTitle = (id) => {
+    return http.get(`/myanimes/${id}/bytitle`);
 };
 
 const MyAnimeService = {

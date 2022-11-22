@@ -9,11 +9,14 @@ module.exports = app => {
     // Retrieve all animes
     router.get("/:id", animes.findAll);
 
+    // Retrieve 1 anime by title
+    router.get("/:id/bytitle", animes.findByTitle);
+
     // Retrieve all published animes
     router.get("/published", animes.findAllPublished);
 
     // Retrieve a single anime with id
-    router.get("/:id", animes.findOne);
+    router.get("/by/:id", animes.findOne);
 
     // Update an anime with id
     router.put("/:id", animes.update);

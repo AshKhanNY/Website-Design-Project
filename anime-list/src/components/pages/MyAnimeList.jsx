@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import MyAnimeService from "../services/MyAnimeService";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate, createSearchParams } from "react-router-dom";
 
 const MyAnimeList = () => {
     const [animes, setAnimes] = useState([]);
     const [currentAnime, setCurrentAnime] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(-1);
     const [searchTitle, setSearchTitle] = useState("");
+    const [animeId, setAnimeId] = useState(-1);
+
+    let nav = useNavigate();
 
     const { id } = useParams();
 
@@ -33,8 +36,8 @@ const MyAnimeList = () => {
             });
     };
 
-    const refreshList = () => {
-        retrieveAnimes();
+    const refreshList = (id) => {
+        retrieveAnimes(id);
         setCurrentAnime(null);
         setCurrentIndex(-1)
     };
@@ -42,13 +45,19 @@ const MyAnimeList = () => {
     const setActiveAnnime = (anime, index) => {
         setCurrentAnime(anime);
         setCurrentIndex(index);
+        // nav({
+        //     pathname: "",
+        //     search: `?${createSearchParams({
+        //         title: anime.title
+        //     })}`
+        // });
     };
 
     const removeAllAnimes = () => {
         MyAnimeService.removeAll()
             .then(response => {
                 console.log(response.data);
-                refreshList();
+                refreshList(id);
             })
             .catch(err => {
                 console.log(err);
@@ -56,7 +65,7 @@ const MyAnimeList = () => {
     };
 
     const findByTitle = () => {
-        MyAnimeService.findByTitle(searchTitle)
+        MyAnimeService.findByTitle(searchTitle, id)
             .then(response => {
                 setAnimes(response.data);
                 console.log(response.data);
@@ -129,7 +138,7 @@ const MyAnimeList = () => {
                             </label>{" "}
                             {currentAnime.published ? "Published": "Pending"}
                         </div>
-                        <Link to={"/animes/" + currentAnime.id} className="badge badge-warning">
+                        <Link to={"/my-animes/" + currentAnime.id} className="badge badge-warning">
                             Edit
                         </Link>
                     </div>

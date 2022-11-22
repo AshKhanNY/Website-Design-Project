@@ -38,10 +38,25 @@ exports.create = (req, res) =>{
 
 // Retrieve all animes from the database.
 exports.findAll = (req, res) => {
-
     const id = req.params.id;
 
     MyAnime.findAll({ where: { userId: id} })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                err.message || "Some error occurred while retrieving animes."
+            });
+        });
+};
+
+exports.findByTitle = (req, res) => {
+    const title = req.query.title;
+    var condition = title? { title: { [Op.eq]: `$%{title}%` } } : null
+
+    MyAnime.findAll({ where: condition})
         .then(data => {
             res.send(data);
         })

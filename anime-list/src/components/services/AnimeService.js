@@ -13,6 +13,7 @@ const create = (data) => {
     return http.post("/animes", data);
 };
 
+
 const update = (id, data) => {
     return http.put(`/animes/${id}`, data);
 };
