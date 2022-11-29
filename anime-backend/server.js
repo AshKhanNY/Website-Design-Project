@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
 
 //routes
 require("./app/routes/anime.routes")(app);
-require("/app/routes/movie.routes")(app);
+require("./app/routes/movie.routes")(app);
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 require("./app/routes/myanime.routes")(app);
