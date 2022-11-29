@@ -1,5 +1,11 @@
+/*
+We can add animes or movies depending on
+Whether the user indicated that the object is a 
+movie or not
+*/
 import React, { useState } from "react";
 import AnimeService from "../services/AnimeService";
+import MovieService from "../services/MovieService";
 
 
 const AddAnime = () => {
@@ -12,11 +18,20 @@ const AddAnime = () => {
 
     const [anime, setAnime] = useState(initialAnimeState);
     const [submitted, setSubmitted] = useState(false);
+    const [checkVal, setCheckVal] = useState(false); // This is use to determine whether to create a movie or not
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setAnime({ ...anime, [name]: value});
     };
+
+    const handleCheckbox = (e) => {
+        if (e.target.checked){
+            setCheckVal(true);
+        } else {
+            setCheckVal(false);
+        }
+    }
 
     const saveAnime = () => {
         var data = {
@@ -24,7 +39,8 @@ const AddAnime = () => {
             description: anime.description
         };
 
-        AnimeService.create(JSON.stringify(data))
+        if(checkVal){
+            MovieService.create(JSON.stringify(data))
             .then(response => {
                 setAnime({
                     id : response.data.id,
@@ -38,11 +54,28 @@ const AddAnime = () => {
             .catch(err => {
                 console.log(err);
             });
+        } else {
+            AnimeService.create(JSON.stringify(data))
+            .then(response => {
+                setAnime({
+                    id : response.data.id,
+                    title: response.data.title,
+                    description: response.data.description,
+                    published: response.data.published
+                });
+                setSubmitted(true);
+                console.log(response.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        }
     };
 
     const newAnime = () => {
         setAnime(initialAnimeState);
         setSubmitted(false);
+        setCheckVal(false);
     };
 
     return (
@@ -80,6 +113,21 @@ const AddAnime = () => {
                             onChange={handleInputChange}
                             name="description"
                         />
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="movie">
+                            <input 
+                                type="checkbox"
+                                className="form-control"
+                                id="movie"
+                                required
+                                value={checkVal}
+                                onChange={handleCheckbox}
+                                name="movie"
+                            />
+                          Is this a movie?
+                        </label>
                     </div>
                     <button onClick={saveAnime} className="btn btn-success">
                         Submit

@@ -3,13 +3,13 @@ module.exports = app => {
 
     var router = require("express").Router();
 
-    // Create a new anime
+    // Create a new movie
     router.post("/", movies.create);
 
     // Retrieve all movies
     router.get("/", movies.findAll);
 
-    // Retrieve all published animes
+    // Retrieve all published movies
     router.get("/published", movies.findAllPublished);
 
     // Retrieve a single movie with id
