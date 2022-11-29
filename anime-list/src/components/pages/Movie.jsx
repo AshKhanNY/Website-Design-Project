@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
-import AnimeService from '../services/AnimeService';
+import MovieService from '../services/MovieService';
 
-const Anime = (props) => {
+const Movie = (props) => {
 
   const { id } = useParams();
   let navigate = useNavigate();
@@ -19,7 +19,7 @@ const Anime = (props) => {
   const [message, setMessage] = useState("");
 
   const getAnime = (id) => {
-    AnimeService.get(id)
+    MovieService.get(id)
       .then(response => {
         setCurrentAnime(response.data);
         console.log(response.data);
@@ -48,7 +48,7 @@ const Anime = (props) => {
       published: status
     };
 
-    AnimeService.update(currentAnime.id, data)
+    MovieService.update(currentAnime.id, data)
       .then(response => {
         setCurrentAnime({ ...currentAnime, published: status});
         console.log(response.data);
@@ -59,10 +59,10 @@ const Anime = (props) => {
   };
 
   const updateAnime = () => {
-    AnimeService.update(currentAnime.id, currentAnime)
+    MovieService.update(currentAnime.id, currentAnime)
       .then(response => {
         console.log(response.data);
-        setMessage("The anime was updated successfully!");
+        setMessage("The movie was updated successfully!");
       })
       .catch(err => {
         console.log(err);
@@ -70,10 +70,10 @@ const Anime = (props) => {
   };
 
   const deleteAnime = () => {
-    AnimeService.remove(currentAnime.id)
+    MovieService.remove(currentAnime.id)
       .then(response => {
         console.log(response.data);
-        navigate("/animes");
+        navigate("/my-list");
       })
       .catch(err => {
         console.log(err);
@@ -138,4 +138,4 @@ const Anime = (props) => {
   );
 };
 
-export default Anime;
+export default Movie;

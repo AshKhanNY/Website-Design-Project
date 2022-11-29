@@ -75,7 +75,8 @@ const AnimeList = () => {
     };
 
     const removeAllAnimes = () => {
-        AnimeService.removeAll()
+        if(movie){
+            MovieService.removeAll()
             .then(response => {
                 console.log(response.data);
                 refreshList();
@@ -83,6 +84,16 @@ const AnimeList = () => {
             .catch(err => {
                 console.log(err);
             });
+        } else {
+            AnimeService.removeAll()
+            .then(response => {
+                console.log(response.data);
+                refreshList();
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        }
     };
 
     const findByTitle = () => {

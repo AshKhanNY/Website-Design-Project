@@ -9,6 +9,7 @@ import Navbar from './components/layout/Navbar';
 import Home from "./components/pages/Home";
 import Anime from "./components/pages/Anime";
 import MyAnime from "./components/pages/MyAnime"
+import Movie from "./components/pages/Movie";
 import Login from "./components/pages/Login";
 import Signup from "./components/pages/Signup";
 import Profile from "./components/pages/Profile";
@@ -85,6 +86,7 @@ function App() {
             <Route path='/' exact element={ <Home /> } />
             <Route path='/animes/:id' element={ <Anime /> } />
             <Route path='/my-animes/:id' element={ <MyAnime /> } />
+            <Route path='/movies/:id' element={ <Movie /> } />
             <Route path='/login' element={ <Login /> }/>
             <Route path='/signup' element={ <Signup /> } />
             <Route path='/profile' element={ <Profile /> } />
