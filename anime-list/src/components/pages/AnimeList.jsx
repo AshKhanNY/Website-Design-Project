@@ -19,6 +19,8 @@ const AnimeList = () => {
     const handleAnime = () => {
         if(movie){
             setHeader("Anime");
+            setCurrentAnime(null);
+            setCurrentIndex(-1)
             setMovie(false);
         }
     }
@@ -26,6 +28,8 @@ const AnimeList = () => {
     const handleMovie = () => {
         if(!movie){
             setHeader("Movie");
+            setCurrentAnime(null);
+            setCurrentIndex(-1)
             setMovie(true);
 
         }
@@ -82,7 +86,8 @@ const AnimeList = () => {
     };
 
     const findByTitle = () => {
-        AnimeService.findByTitle(searchTitle)
+        if(movie) {
+            MovieService.findByTitle(searchTitle)
             .then(response => {
                 setAnimes(response.data);
                 console.log(response.data);
@@ -90,21 +95,46 @@ const AnimeList = () => {
             .catch(err => {
                 console.log(err);
             });
+        } else {
+            AnimeService.findByTitle(searchTitle)
+            .then(response => {
+                setAnimes(response.data);
+                console.log(response.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        }
     };
 
     const upVote = () => {
-        currentAnime.votes = (parseInt(currentAnime.votes) + 1).toString();
+        if(movie){
+            currentAnime.votes = (parseInt(currentAnime.votes) + 1).toString();
 
-        AnimeService.update(currentAnime.id, currentAnime)
-        .then(response => {
-          console.log(response.data);
-        })
-        .catch(err => {
-          console.log(err);
-        });
+            MovieService.update(currentAnime.id, currentAnime)
+            .then(response => {
+            console.log(response.data);
+            })
+            .catch(err => {
+            console.log(err);
+            });
 
-        retrieveAnimes();
-        setActiveAnnime(currentAnime, currentIndex);
+            retrieveAnimes();
+            setActiveAnnime(currentAnime, currentIndex);
+        } else {
+            currentAnime.votes = (parseInt(currentAnime.votes) + 1).toString();
+
+            AnimeService.update(currentAnime.id, currentAnime)
+            .then(response => {
+            console.log(response.data);
+            })
+            .catch(err => {
+            console.log(err);
+            });
+
+            retrieveAnimes();
+            setActiveAnnime(currentAnime, currentIndex);
+        }
     }
 
     const downVote = () => {
@@ -112,18 +142,33 @@ const AnimeList = () => {
             return;
         }
 
-        currentAnime.votes = (parseInt(currentAnime.votes) - 1).toString();
+        if(movie){
+            currentAnime.votes = (parseInt(currentAnime.votes) - 1).toString();
 
-        AnimeService.update(currentAnime.id, currentAnime)
-        .then(response => {
-          console.log(response.data);
-        })
-        .catch(err => {
-          console.log(err);
-        });
+            AnimeService.update(currentAnime.id, currentAnime)
+            .then(response => {
+            console.log(response.data);
+            })
+            .catch(err => {
+            console.log(err);
+            });
 
-        retrieveAnimes();
-        setActiveAnnime(currentAnime, currentIndex);
+            retrieveAnimes();
+            setActiveAnnime(currentAnime, currentIndex);
+        } else {
+            currentAnime.votes = (parseInt(currentAnime.votes) - 1).toString();
+
+            AnimeService.update(currentAnime.id, currentAnime)
+            .then(response => {
+            console.log(response.data);
+            })
+            .catch(err => {
+            console.log(err);
+            });
+
+            retrieveAnimes();
+            setActiveAnnime(currentAnime, currentIndex);
+        }
     }
 
     return (
