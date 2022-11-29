@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AnimeService from "../services/AnimeService";
 import { Link } from "react-router-dom";
+import MovieService from "../services/MovieService";
 
 
 const AnimeList = () => {
@@ -8,10 +9,27 @@ const AnimeList = () => {
     const [currentAnime, setCurrentAnime] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(-1);
     const [searchTitle, setSearchTitle] = useState("");
+    const [movie, setMovie] = useState(false);
+    const [header, setHeader] = useState("Anime")
 
     useEffect(() => {
         retrieveAnimes();
-    }, []);
+    }, [movie]);
+
+    const handleAnime = () => {
+        if(movie){
+            setHeader("Anime");
+            setMovie(false);
+        }
+    }
+
+    const handleMovie = () => {
+        if(!movie){
+            setHeader("Movie");
+            setMovie(true);
+
+        }
+    }
 
 
     const onChangeSearchTitle = (e) => {
@@ -20,7 +38,8 @@ const AnimeList = () => {
     };
 
     const retrieveAnimes = () => {
-        AnimeService.getAll()
+        if(movie) {
+            MovieService.getAll()
             .then(response => {
                 setAnimes(response.data);
                 console.log(response.data);
@@ -28,6 +47,16 @@ const AnimeList = () => {
             .catch(err => {
                 console.log(err);
             });
+        } else {
+            AnimeService.getAll()
+            .then(response => {
+                setAnimes(response.data);
+                console.log(response.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        }
     };
 
     const refreshList = () => {
@@ -120,7 +149,13 @@ const AnimeList = () => {
                 </div>
             </div>
             <div className="col-md-6">
-                <h4>Anime List</h4>
+                <button className={`ml-5 ui button " + ${movie ? "" : "primary"}`} onClick={handleAnime}>
+                    Animes
+                </button>
+                <button className={"ml-2 ui button " + (movie ? "primary" : "")} onClick={handleMovie}>
+                    Movies
+                </button>
+                <h4 className="ml-5">{header + " List"}</h4>
 
                 <ul>
                     {animes &&
@@ -141,7 +176,7 @@ const AnimeList = () => {
             <div className="col-md-6">
                 {currentAnime ? (
                     <div>
-                        <h4>Anime</h4>
+                        <h4>{header}</h4>
                         <div>
                             <label>
                                 <strong>Title:</strong>
@@ -172,9 +207,15 @@ const AnimeList = () => {
                         <div className="badge badge-danger mr-2 votes" onClick={downVote}>
                             DOWNVOTE
                         </div>
-                        <Link to={"/animes/" + currentAnime.id} className="badge badge-warning">
+                        {movie ? (
+                            <Link to={"/movies/" + currentAnime.id} className="badge badge-warning">
                             Edit
                         </Link>
+                        ):(
+                            <Link to={"/animes/" + currentAnime.id} className="badge badge-warning">
+                            Edit
+                        </Link>
+                        )}
                     </div>
                 ):(
                     <div>
