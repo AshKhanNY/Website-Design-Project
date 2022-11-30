@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import MovieService from "../services/MovieService";
 
 
-const AnimeList = () => {
+const AnimeList = (props) => {
     const [animes, setAnimes] = useState([]);
     const [currentAnime, setCurrentAnime] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(-1);
@@ -243,7 +243,7 @@ const AnimeList = () => {
                             <label>
                                 <strong>Description:</strong>
                             </label>{" "}
-                            {currentAnime.title}
+                            {currentAnime.description}
                         </div>
                         <div>
                             <label>
@@ -263,15 +263,29 @@ const AnimeList = () => {
                         <div className="badge badge-danger mr-2 votes" onClick={downVote}>
                             DOWNVOTE
                         </div>
-                        {movie ? (
-                            <Link to={"/movies/" + currentAnime.id} className="badge badge-warning">
-                            Edit
-                        </Link>
-                        ):(
-                            <Link to={"/animes/" + currentAnime.id} className="badge badge-warning">
-                            Edit
-                        </Link>
-                        )}
+                        {props.showAdminBoard ? (
+                            <>
+                                {movie ? (
+                                    <>
+                                        <Link to={"/movies/" + currentAnime.id} className="badge badge-warning">
+                                            Edit
+                                        </Link>
+                                    </>
+                                ): (
+                                    <>
+
+                                        <Link to={"/animes/" + currentAnime.id} className="badge badge-warning">
+                                            Edit
+                                        </Link>
+                                    </>
+                                )}
+                                
+                            </> ):(
+                                    <>
+
+                                    </>
+   
+                            )}
                     </div>
                 ):(
                     <div>
