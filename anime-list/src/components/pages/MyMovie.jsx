@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
-import MyAnimeService from '../services/MyAnimeService';
+import MyMovieService from '../services/MyMovieService';
 
-const MyAnime = (props) => {
+const MyMovie = (props) => {
 
   const { id } = useParams();
   let navigate = useNavigate();
@@ -19,7 +19,7 @@ const MyAnime = (props) => {
 
   const getAnime = (id) => {
     console.log("gettin anime with id of: " + id);
-    MyAnimeService.get(id)
+    MyMovieService.get(id)
       .then(response => {
         setCurrentAnime(response.data);
         console.log(response.data);
@@ -48,7 +48,7 @@ const MyAnime = (props) => {
       published: status
     };
 
-    MyAnimeService.update(currentAnime.id, data)
+    MyMovieService.update(currentAnime.id, data)
       .then(response => {
         setCurrentAnime({ ...currentAnime, published: status});
         console.log(response.data);
@@ -60,10 +60,10 @@ const MyAnime = (props) => {
 
   const updateAnime = () => {
     console.log(currentAnime)
-    MyAnimeService.update(currentAnime.id, currentAnime)
+    MyMovieService.update(currentAnime.id, currentAnime)
       .then(response => {
         console.log(response.data);
-        setMessage("The anime was updated successfully!");
+        setMessage("The movie was updated successfully!");
       })
       .catch(err => {
         console.log(err);
@@ -71,7 +71,7 @@ const MyAnime = (props) => {
   };
 
   const deleteAnime = () => {
-    MyAnimeService.remove(currentAnime.id)
+    MyMovieService.remove(currentAnime.id)
       .then(response => {
         console.log(response.data);
         navigate("/my-list");
@@ -85,7 +85,7 @@ const MyAnime = (props) => {
     <div>
         {currentAnime ? (
           <div className="edit-form">
-            <h4>Anime</h4>
+            <h4>Movie</h4>
             <form>
               <div className="form-group">
                 <label htmlFor="title">Title</label>
@@ -132,11 +132,11 @@ const MyAnime = (props) => {
         ) : (
           <div>
             <br />
-            <p>Please click on an Anime</p>
+            <p>Please click on a movie</p>
           </div>
         )}
     </div>
   );
 };
 
-export default MyAnime;
+export default MyMovie;

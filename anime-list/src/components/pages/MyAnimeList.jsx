@@ -1,21 +1,43 @@
 import React, { useState, useEffect } from "react";
 import MyAnimeService from "../services/MyAnimeService";
-import { Link, useParams, useNavigate, createSearchParams } from "react-router-dom";
+import MyMovieService from "../services/MyMovieService";
+import { Link, useParams } from "react-router-dom";
 
-const MyAnimeList = () => {
+const MyAnimeList = (props) => {
     const [animes, setAnimes] = useState([]);
     const [currentAnime, setCurrentAnime] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(-1);
     const [searchTitle, setSearchTitle] = useState("");
-    const [animeId, setAnimeId] = useState(-1);
+    const [movie, setMovie] = useState(false);
+    const [header, setHeader] = useState("Anime")
+    //const [animeId, setAnimeId] = useState(-1);
 
-    let nav = useNavigate();
+    //let nav = useNavigate();
 
     const { id } = useParams();
 
     useEffect(() => {
         retrieveAnimes(id);
-    }, []);
+    }, [movie]);
+
+    const handleAnime = () => {
+        if(movie){
+            setHeader("Anime");
+            setCurrentAnime(null);
+            setCurrentIndex(-1)
+            setMovie(false);
+        }
+    }
+
+    const handleMovie = () => {
+        if(!movie){
+            setHeader("Movie");
+            setCurrentAnime(null);
+            setCurrentIndex(-1)
+            setMovie(true);
+
+        }
+    }
 
 
     const onChangeSearchTitle = (e) => {
@@ -25,15 +47,26 @@ const MyAnimeList = () => {
 
     const retrieveAnimes = (id) => {
         
+        if(movie){
+            MyMovieService.getAll(id)
+                .then(response => {
+                    setAnimes(response.data);
+                    console.log(response.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        } else {
+            MyAnimeService.getAll(id)
+                .then(response => {
+                    setAnimes(response.data);
+                    console.log(response.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
 
-        MyAnimeService.getAll(id)
-            .then(response => {
-                setAnimes(response.data);
-                console.log(response.data);
-            })
-            .catch(err => {
-                console.log(err);
-            });
     };
 
     const refreshList = (id) => {
@@ -54,25 +87,111 @@ const MyAnimeList = () => {
     };
 
     const removeAllAnimes = () => {
-        MyAnimeService.removeAll()
-            .then(response => {
-                console.log(response.data);
-                refreshList(id);
-            })
-            .catch(err => {
-                console.log(err);
-            });
+
+        if(movie){
+            MyMovieService.removeAll()
+                .then(response => {
+                    console.log(response.data);
+                    refreshList(id);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        } else {
+            MyAnimeService.removeAll()
+                .then(response => {
+                    console.log(response.data);
+                    refreshList(id);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
     };
 
     const findByTitle = () => {
-        MyAnimeService.findByTitle(searchTitle, id)
-            .then(response => {
-                setAnimes(response.data);
+        if(movie){
+            MyMovieService.findByTitle(searchTitle, id)
+                .then(response => {
+                    setAnimes(response.data);
+                    console.log(response.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        } else {
+            MyAnimeService.findByTitle(searchTitle, id)
+                .then(response => {
+                    setAnimes(response.data);
+                    console.log(response.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+    };
+
+    const upVote = () => {
+        currentAnime.votes = (parseInt(currentAnime.votes) + 1).toString();
+        if(movie){
+
+            MyMovieService.update(currentAnime.id, currentAnime)
+                .then(response => {
                 console.log(response.data);
-            })
-            .catch(err => {
+                })
+                .catch(err => {
                 console.log(err);
-            });
+                });
+
+            retrieveAnimes(id);
+            setActiveAnnime(currentAnime, currentIndex);
+        } else {
+
+            MyAnimeService.update(currentAnime.id, currentAnime)
+                .then(response => {
+                console.log(response.data);
+                })
+                .catch(err => {
+                console.log(err);
+                });
+
+            retrieveAnimes(id);
+            setActiveAnnime(currentAnime, currentIndex);
+        }
+    };
+
+    const downVote = () => {
+        if(parseInt(currentAnime.votes) < 1){
+            return;
+        }
+
+        if(movie){
+            currentAnime.votes = (parseInt(currentAnime.votes) - 1).toString();
+
+            MyMovieService.update(currentAnime.id, currentAnime)
+                .then(response => {
+                console.log(response.data);
+                })
+                .catch(err => {
+                console.log(err);
+                });
+
+            retrieveAnimes(id);
+            setActiveAnnime(currentAnime, currentIndex);
+        } else {
+            currentAnime.votes = (parseInt(currentAnime.votes) - 1).toString();
+
+            MyAnimeService.update(currentAnime.id, currentAnime)
+                .then(response => {
+                console.log(response.data);
+                })
+                .catch(err => {
+                console.log(err);
+                });
+
+            retrieveAnimes(id);
+            setActiveAnnime(currentAnime, currentIndex);
+        }
     };
 
     return (
@@ -98,18 +217,24 @@ const MyAnimeList = () => {
                 </div>
             </div>
             <div className="col-md-6">
-                <h4>Anime List</h4>
+                <button className={`ml-5 ui button " + ${movie ? "" : "primary"}`} onClick={handleAnime}>
+                    Animes
+                </button>
+                <button className={"ml-2 ui button " + (movie ? "primary" : "")} onClick={handleMovie}>
+                    Movies
+                </button>
+                <h4 className="ml-5">{header + " List"}</h4>
 
                 <ul>
                     {animes &&
-                     animes.map((anime, index) => (
-                        <li 
+                     animes.sort((el1,el2) => el2.votes.toString().localeCompare(el1.votes.toString(), undefined, {numeric: true})).map((anime, index) =>
+                        <li key={index}
                           className={"list-group-item " + (index === currentIndex ? "active" : "")}
                           onClick={() => setActiveAnnime(anime,index)}
                           >
                             {anime.title}
                         </li>
-                     ))}
+                     )}
                 </ul>
 
                 <button className="m-3 btn btn-sm btn-danger" onClick={removeAllAnimes}>
@@ -130,7 +255,7 @@ const MyAnimeList = () => {
                             <label>
                                 <strong>Description:</strong>
                             </label>{" "}
-                            {currentAnime.title}
+                            {currentAnime.description}
                         </div>
                         <div>
                             <label>
@@ -138,14 +263,46 @@ const MyAnimeList = () => {
                             </label>{" "}
                             {currentAnime.published ? "Published": "Pending"}
                         </div>
-                        <Link to={"/my-animes/" + currentAnime.id} className="badge badge-warning">
-                            Edit
-                        </Link>
+                        <div>
+                            <label>
+                                <strong>Votes:</strong>
+                            </label>{" "}
+                            {currentAnime.votes}
+                        </div>
+                        <div className="badge badge-success mr-2 votes" onClick={upVote}>
+                            UPVOTE
+                        </div>
+                        <div className="badge badge-danger mr-2 votes" onClick={downVote}>
+                            DOWNVOTE
+                        </div>
+                        {props.showAdminBoard ? (
+                            <>
+                                {movie ? (
+                                    <>
+                                        <Link to={"/my-movies/" + currentAnime.id} className="badge badge-warning">
+                                            Edit
+                                        </Link>
+                                    </>
+                                ): (
+                                    <>
+
+                                        <Link to={"/my-animes/" + currentAnime.id} className="badge badge-warning">
+                                            Edit
+                                        </Link>
+                                    </>
+                                )}
+                                
+                            </> ):(
+                                    <>
+
+                                    </>
+   
+                            )}
                     </div>
                 ):(
                     <div>
                         <br />
-                        <p>Please click on an Anime </p>
+                        <p>Please click on an {header} </p>
                     </div>
                 )}
             </div>

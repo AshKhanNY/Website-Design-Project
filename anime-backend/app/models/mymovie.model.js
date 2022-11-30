@@ -8,6 +8,9 @@ module.exports = (sequelize, Sequelize) => {
         },
         published: {
             type: Sequelize.BOOLEAN
+        },
+        votes: {
+            type: Sequelize.STRING
         }
     });
 

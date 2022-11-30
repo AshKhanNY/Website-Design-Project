@@ -18,7 +18,8 @@ exports.create = (req, res) =>{
         title: req.body.title,
         description: req.body.description,
         published: req.body.published? req.body.published : false,
-        userId: req.body.userId
+        userId: req.body.userId,
+        votes: 0
     };
 
     console.log("about to create anime")

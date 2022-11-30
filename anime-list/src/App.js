@@ -10,6 +10,7 @@ import Home from "./components/pages/Home";
 import Anime from "./components/pages/Anime";
 import MyAnime from "./components/pages/MyAnime"
 import Movie from "./components/pages/Movie";
+import MyMovie from "./components/pages/MyMovie";
 import Login from "./components/pages/Login";
 import Signup from "./components/pages/Signup";
 import Profile from "./components/pages/Profile";
@@ -86,12 +87,13 @@ function App() {
             <Route path='/' exact element={ <Home /> } />
             <Route path='/animes/:id' element={ <Anime /> } />
             <Route path='/my-animes/:id' element={ <MyAnime /> } />
+            <Route path='/my-movies/:id' element={ <MyMovie /> } />
             <Route path='/movies/:id' element={ <Movie /> } />
             <Route path='/login' element={ <Login /> }/>
             <Route path='/signup' element={ <Signup /> } />
             <Route path='/profile' element={ <Profile /> } />
-            <Route path='/my-list' element={ <AnimeList {...props}/> } />
-            <Route path='/myplist/:id' element={ <MyAnimeList /> } />
+            <Route path='/my-list' element={ <AnimeList {...props} /> } />
+            <Route path='/myplist/:id' element={ <MyAnimeList {...props} /> } />
             <Route path='/add-anime' element={ <AddAnime /> } />
             <Route path='/addplist/' element={ <AddMyAnime />} />
           </Routes>

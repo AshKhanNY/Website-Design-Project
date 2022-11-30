@@ -31,6 +31,10 @@ db.myanime.belongsTo(db.user, {
     foreignKey: "userId",
 });
 
+db.mymovie.belongsTo(db.user, {
+    foreignKey: "userId",
+});
+
 db.role.belongsToMany(db.user, {
     through: "user_roles",
     foreignKey: "roleId",

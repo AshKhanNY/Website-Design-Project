@@ -146,7 +146,7 @@ const AnimeList = (props) => {
             retrieveAnimes();
             setActiveAnnime(currentAnime, currentIndex);
         }
-    }
+    };
 
     const downVote = () => {
         if(parseInt(currentAnime.votes) < 1){
@@ -156,13 +156,13 @@ const AnimeList = (props) => {
         if(movie){
             currentAnime.votes = (parseInt(currentAnime.votes) - 1).toString();
 
-            AnimeService.update(currentAnime.id, currentAnime)
-            .then(response => {
-            console.log(response.data);
-            })
-            .catch(err => {
-            console.log(err);
-            });
+            MovieService.update(currentAnime.id, currentAnime)
+                .then(response => {
+                console.log(response.data);
+                })
+                .catch(err => {
+                console.log(err);
+                });
 
             retrieveAnimes();
             setActiveAnnime(currentAnime, currentIndex);
@@ -170,17 +170,17 @@ const AnimeList = (props) => {
             currentAnime.votes = (parseInt(currentAnime.votes) - 1).toString();
 
             AnimeService.update(currentAnime.id, currentAnime)
-            .then(response => {
-            console.log(response.data);
-            })
-            .catch(err => {
-            console.log(err);
-            });
+                .then(response => {
+                console.log(response.data);
+                })
+                .catch(err => {
+                console.log(err);
+                });
 
             retrieveAnimes();
             setActiveAnnime(currentAnime, currentIndex);
         }
-    }
+    };
 
     return (
         <div className="list row">
@@ -290,7 +290,7 @@ const AnimeList = (props) => {
                 ):(
                     <div>
                         <br />
-                        <p>Please click on an Anime </p>
+                        <p>Please click on an {header} </p>
                     </div>
                 )}
             </div>

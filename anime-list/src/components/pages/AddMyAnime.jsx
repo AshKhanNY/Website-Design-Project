@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import MyAnimeService from "../services/MyAnimeService";
+import MyMovieService from "../services/MyMovieService";
 import AuthService from "../services/auth.service";
 
 const AddMyAnime = () => {
@@ -14,11 +15,20 @@ const AddMyAnime = () => {
 
     const [anime, setAnime] = useState(initialAnimeState);
     const [submitted, setSubmitted] = useState(false);
+    const [checkVal, setCheckVal] = useState(false);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setAnime({ ...anime, [name]: value});
     };
+
+    const handleCheckbox = (e) => {
+        if (e.target.checked){
+            setCheckVal(true);
+        } else {
+            setCheckVal(false);
+        }
+    }
 
     const saveAnime = () => {
         
@@ -28,20 +38,38 @@ const AddMyAnime = () => {
             userId: user.id
         };
 
-        MyAnimeService.create(JSON.stringify(data))
-            .then(response => {
-                setAnime({
-                    id : response.data.id,
-                    title: response.data.title,
-                    description: response.data.description,
-                    published: response.data.published
+        if (checkVal){
+            MyMovieService.create(JSON.stringify(data))
+                .then(response => {
+                    setAnime({
+                        id : response.data.id,
+                        title: response.data.title,
+                        description: response.data.description,
+                        published: response.data.published
+                    });
+                    setSubmitted(true);
+                    console.log(response.data);
+                })
+                .catch(err => {
+                    console.log(err);
                 });
-                setSubmitted(true);
-                console.log(response.data);
-            })
-            .catch(err => {
-                console.log(err);
-            });
+        } else {
+            MyAnimeService.create(JSON.stringify(data))
+                .then(response => {
+                    setAnime({
+                        id : response.data.id,
+                        title: response.data.title,
+                        description: response.data.description,
+                        published: response.data.published
+                    });
+                    setSubmitted(true);
+                    console.log(response.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+
     };
 
     const newAnime = () => {
@@ -85,6 +113,22 @@ const AddMyAnime = () => {
                             name="description"
                         />
                     </div>
+
+                    <div className="form-group">
+                        <label htmlFor="movie">
+                            <input 
+                                type="checkbox"
+                                className="form-control"
+                                id="movie"
+                                required
+                                value={checkVal}
+                                onChange={handleCheckbox}
+                                name="movie"
+                            />
+                          Is this a movie?
+                        </label>
+                    </div>
+
                     <button onClick={saveAnime} className="btn btn-success">
                         Submit
                     </button>
