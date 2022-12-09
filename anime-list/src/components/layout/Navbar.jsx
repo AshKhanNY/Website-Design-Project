@@ -20,7 +20,7 @@ const Navbar = (props) =>{
     return(
         <div className={props.scrolDir? "nav nav-unscoped hidden" : "nav nav-unscoped" } style={transStyle} data-nav>
             <div className="wrap guess" data-nav>
-                <a href="/" className="logo link-active">LOGO</a>
+                <a href="/" className="logo link-active"><img src="/logo.png" width={100} height={75}/></a>
                 <div className="links" data-nav>
                     <span className="browse-wrap" data-nav>
                         <Link to="/search" className="link" data-nav>Search</Link>
