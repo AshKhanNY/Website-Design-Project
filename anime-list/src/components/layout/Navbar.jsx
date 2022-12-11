@@ -51,8 +51,7 @@ const Navbar = (props) =>{
                                 <>
                                 </>
                             ) }
-                            <Link to="/social" className="link" data-nav>Social</Link>
-                            <Link to="/forum" className="link" data-nav>Forum</Link>
+
                             <Link to="/profile" className= "link login" data-nav>{props.currentUser.username}</Link>
                             <Link to="/login" className="link signup" data-nav onClick={logOut}>Log out</Link>
                         </>
