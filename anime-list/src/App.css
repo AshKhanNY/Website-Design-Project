@@ -37,6 +37,21 @@ html{
   }
 
   /* end of background images */
+
+  /* for the anime table */
+
+  .animetable {
+    font-size: 28px;
+    color: rgb(8, 8, 8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+/* end of anime table */
 div{
     display: block;
 }

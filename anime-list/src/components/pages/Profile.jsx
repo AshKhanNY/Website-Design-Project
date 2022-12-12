@@ -1,35 +1,29 @@
 import React from "react";
 import AuthService from "../services/auth.service";
+import { Avatar, Badge, Button, List } from 'antd';
+
 
 const Profile = () => {
   const currentUser = AuthService.getCurrentUser();
 
   return (
-    <div className="page-content">
-      <div className="container">
-        <header className="empty">
-          <h3>
-            <strong>{currentUser.username}</strong> Profile
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div style={{ width: '200px', height: '200px'}}>
+        {<div>
+      <Avatar size={100} src={'https://st2.depositphotos.com/1104517/11965/v/950/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg'} />
+      <h3>
+          <strong>{currentUser.username}</strong> Profile
           </h3>
-        </header>
-        <p>
-          <strong>Token:</strong> {currentUser.accessToken.substring(0, 20)} ...{" "}
-          {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
-        </p>
-        <p>
-          <strong>Id:</strong> {currentUser.id}
-        </p>
-        <p>
+          <h3>
           <strong>Email:</strong> {currentUser.email}
-        </p>
-        <strong>Authorities:</strong>
-        <ul>
-          {currentUser.roles &&
-            currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
-        </ul>
+          </h3>
+      <Button type="primary">Edit Profile</Button>
+    </div>}
       </div>
     </div>
   );
-};
+  };
 
-export default Profile;
+  export default Profile;
+
+  
