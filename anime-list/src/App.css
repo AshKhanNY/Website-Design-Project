@@ -16,6 +16,42 @@ html{
     -webkit-text-size-adjust: 100%;
 }
 
+/* For the background images */ 
+
+.login_image {
+    background-image: url("https://wallpaperaccess.com/full/21593.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .sign_up_image {
+    background-image: url("https://wallpaperaccess.com/full/37945.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .search_image {
+    background-image: url(" https://wallpaperaccess.com/full/1586344.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  /* end of background images */
+
+  /* for the anime table */
+
+  .animetable {
+    font-size: 28px;
+    color: rgb(8, 8, 8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+/* end of anime table */
 div{
     display: block;
 }
@@ -56,7 +92,7 @@ Hide nav ba
 
 .nav[data-nav]{
     display: flex;
-    height: 75px;
+    height: 80px;
     justify-content: center;
     left: 0;
     position: fixed;
@@ -83,11 +119,11 @@ Hide nav ba
 }
 
 .logo[data-nav]{
-    align-items: center;
+    align-items: left;
     display: inline-flex;
-    height: 55px;
-    justify-content: center;
-    width:65px;
+    height: 90px;
+    justify-content: left;
+    width:80px;
 }
 
 a:visited{
@@ -139,7 +175,7 @@ a{
 }
 
 .signup[data-nav]{
-    background: #3577ff;
+    background: #000000;
     border-radius: 6px;
     box-shadow: 0 0 0 rgb(8 150 230 / 60%);
     color: rgb(255, 255, 255) !important;
@@ -272,6 +308,8 @@ input{
 }
 .page-content{
     min-height: 100vh;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 .auth-form-unscoped .form {
@@ -384,10 +422,10 @@ Footer
     color: #010212;
     font-family: Overpass, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
     font-weight: 600;
-    margin-top: 20px;
-    min-height: 100px;
+    margin-top: 0px;
+    min-height: 90px;
     padding: 50px 30px;
-    text-align: left;
+    text-align: center;
     width: 100%;
 }
 
@@ -414,15 +452,16 @@ Footer
 }
 
 .wrap[data-nav-2]{
-    margin-top: 60px;
+    margin-top: 0px;
     text-align: center;
 }
 
 h2[data-nav-2]{
-    color: #3db4f2;
+    text-align: center;
+    color: #0f0f0f;
     font-size: 1.6rem;
     font-weight: 700;
-    padding-bottom: 14px;
+    padding-bottom: 10px;
 }
 
 .el-tooltip:focus:focus:hover, .el-tooltip:focus:not(.focusing){

@@ -70,6 +70,7 @@ const Login = () => {
     };
 
     return(
+        <div className="login_image">
         <div className="page-content">
             <div className="auth-form-unscoped">
                 <div className="form container">
@@ -116,6 +117,7 @@ const Login = () => {
                 </div>
             </div>
         </div>
+    </div>
     );
 }
 

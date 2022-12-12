@@ -103,10 +103,11 @@ const Signup = () => {
     };
 
     return(
+        <div className="sign_up_image">
         <div className="page-content">
             <div className="auth-form-unscoped">
                 <div className="form container">
-                    <div className="title">Signup to "Name of the site" </div>
+                    <div className="title">Signup to MyMediaList </div>
                     <Form onSubmit={handleRegister} ref={form}>
                         {!successful && (
                             <div>
@@ -155,6 +156,7 @@ const Signup = () => {
                 </div>
             </div>
         </div>
+    </div>
     );
 }
 
