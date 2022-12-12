@@ -26,6 +26,8 @@ db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.myanime = require("../models/myanime.model.js")(sequelize, Sequelize);
 db.mymovie = require("../models/mymovie.model.js")(sequelize, Sequelize);
+db.animedata = require("../models/animedata.model.js")(sequelize, Sequelize);
+db.moviedata = require("../models/moviedata.model.js")(sequelize, Sequelize);
 
 db.myanime.belongsTo(db.user, {
     foreignKey: "userId",
