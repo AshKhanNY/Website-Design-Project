@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import UserService from "../services/user.service";
+import AnimedataService from "../services/AnimedataService";
 import Table from "rc-table";
 import { Button } from "antd";
 
 const columns = [
     {
       title: "Name",
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "title",
+      key: "title",
       width: 100,
     },
     {
@@ -24,8 +25,8 @@ const columns = [
       },
       {
         title: "Rating",
-        dataIndex: "rating",
-        key: "rating",
+        dataIndex: "score",
+        key: "score",
         width: 100,
       },
       {
@@ -49,12 +50,13 @@ const columns = [
   ];
 
 const Home = () => {
-    const [content, setContent] = useState("");
+    const [content, setContent] = useState([]);
 
     useEffect(() => {
-        UserService.getPublicContent().then(
+        AnimedataService.getAll().then(
             (response) => {
                 setContent(response.data);
+                console.log(response);
             },
             (error) => {
                 const _content = (
@@ -71,7 +73,7 @@ const Home = () => {
         <div className="animetable">
     <Table
       columns={columns}
-      data={data}
+      data={content}
       tableLayout="auto"/>
       </div>
     );
