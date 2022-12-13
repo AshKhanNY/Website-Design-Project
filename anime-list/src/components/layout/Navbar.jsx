@@ -20,21 +20,33 @@ const Navbar = (props) =>{
     return(
         <div className={props.scrolDir? "nav nav-unscoped hidden" : "nav nav-unscoped" } style={transStyle} data-nav>
             <div className="wrap guess" data-nav>
-                <a href="/" className="logo link-active"><img src="/logo.png" width={100} height={75}/></a>
+                <a href="/" className="logo link-active"><img src="/logo.png" width={100} height={80}/></a>
                 <div className="links" data-nav>
                     <span className="browse-wrap" data-nav>
                         <Link to="/search" className="link" data-nav>Search</Link>
                         <div className="dropdown" data-nav>
                             <div className="primary-links" data-nav>
-                                <div className="primary-link">
-                                    <svg data-nav aria-hidden focusable={false} dataPrefix="fas" dataIcon="play" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className="icon svg-inline--fa fa-play fa-w-14"></svg>
+                                <div className="primary-link" data-nav>
+                                    <i className="play icon"></i>
+                                    <section className="l-section">
+                                        <a href="/" className="primary-link-text" data-nav>Anime</a>
+                                        <div className="secondary-links" data-nav>
+                                            <a href="/" className="primary-link-text disabled" data-nav>Top animes</a>
+                                        </div>
+                                    </section>
+                                </div>
+                                <div className="primary-link" data-nav>
+                                    <i className="caret square right icon"></i>
+                                    <section className="l-section">
+                                        <a href="/home" className="primary-link-text" data-nav>Movies</a>
+                                        <div className="secondary-links" data-nav>
+                                            <a href="/" className="primary-link-text disabled" data-nav>Top movies</a>
+                                        </div>
+                                    </section>
                                 </div>
                             </div>
                             <div className="footers" data-nav>
-                                <a href="/">a</a>
-                                <a href="/">b</a>
-                                <a href="/">c</a>
-                                <a href="/">d</a>
+                                <a href="/" className="primary-link-text disabled" data-nav>MediaList</a>
                             </div>
                         </div>
                     </span>

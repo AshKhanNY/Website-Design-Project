@@ -244,6 +244,19 @@ span{
     position: absolute;
 }
 
+/**DROP DOWN LINKS*/
+
+.primary-link-text[data-nav]{
+    color: rgb(116, 136, 153);
+}
+
+.primary-link-text[data-nav]:hover{
+    color: rgb(81, 97, 112);
+}
+
+/*END OF LINKS FOR DROP DOWN*/
+
+
 .browse-wrap[data-nav]:hover .dropdown{
     animation: dropdown-in-data-nav;
     opacity: 1;
@@ -272,11 +285,26 @@ span{
     align-items: center;
     color:rgb(100, 115, 128);
     display: grid;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 700;
     grid-column-gap: 14px;
     grid-template-columns: 20px auto;
     transition: color .2s ease;
+}
+
+.secondary-links[data-nav]{
+    color: rgb(100, 115, 128);
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: color .2s ease;
+}
+
+.l-section{
+    margin-top: 1.6rem;
+}
+
+.disabled[data-nav]{
+    pointer-events: none;
 }
 
 @keyframes dropdown-in-data-nav {
@@ -490,3 +518,14 @@ section{
 .votes{
     cursor: pointer;
 }
+
+
+/*TABLE*/
+.t-header, .row {
+    display: flex;  /* aligns all child elements (flex items) in a row */
+  }
+  
+  .col {
+    flex: 1;        /* distributes space on the line equally among items */
+  }
+/*END of TABLE*/

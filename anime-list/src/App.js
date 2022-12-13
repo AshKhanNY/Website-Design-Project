@@ -84,7 +84,7 @@ function App() {
         <Navbar {...props} />
         <div className="page-content">
           <Routes>
-            <Route path='/' exact element={ <Home /> } />
+            <Route path='/' exact element={ <Home {...props} /> } />
             <Route path='/animes/:id' element={ <Anime /> } />
             <Route path='/my-animes/:id' element={ <MyAnime /> } />
             <Route path='/my-movies/:id' element={ <MyMovie /> } />

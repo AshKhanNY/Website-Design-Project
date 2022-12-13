@@ -49,14 +49,13 @@ const columns = [
     },
   ];
 
-const Home = () => {
+const Home = (props) => {
     const [content, setContent] = useState([]);
 
     useEffect(() => {
         AnimedataService.getAll().then(
             (response) => {
                 setContent(response.data);
-                console.log(response);
             },
             (error) => {
                 const _content = (
@@ -70,11 +69,36 @@ const Home = () => {
     }, []);
 
     return(
-        <div className="animetable">
-    <Table
-      columns={columns}
-      data={content}
-      tableLayout="auto"/>
+      <div>
+        {props.currentUser? (
+          <section>
+              <header className="t-header">
+                <div className="col">Name</div>
+                <div className="col">Image</div>
+                <div className="col">Genre</div>
+                <div className="col">Rating</div>
+                <div className="col"></div>
+              </header>
+              {content && content.map((res, i) =>
+                <div className="row">
+                  <div className="col">{res.title}</div>
+                  <div className="col"><img src={`${res.image}`} width={60}/></div>
+                  <div className="col">{res.genre}</div>
+                  <div className="col">{res.score}</div>
+                  <div className="col">
+                    <div class="ui animated button" tabindex="0">
+                      <div class="visible content">Add anime</div>
+                      <div class="hidden content">
+                        <i class="right arrow icon"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+          </section>
+        ):(
+          <h1>UNAUTHORIZED ACCESS</h1>
+        )}
       </div>
     );
 };
