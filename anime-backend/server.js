@@ -132,6 +132,7 @@ require("./app/routes/mymovie.routes")(app);
 require("./app/routes/animedata.routes")(app);
 require("./app/routes/moviedata.routes")(app);
 require("./app/routes/animevote.routes")(app);
+require("./app/routes/movievote.routes")(app);
 
 
 // set pport, listen for requests
