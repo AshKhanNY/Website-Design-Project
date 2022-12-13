@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MyAnimeService from "../services/MyAnimeService";
 import MyMovieService from "../services/MyMovieService";
+import AnimevoteService from "../services/AnimevoteService";
 import { Link, useParams } from "react-router-dom";
 
 const MyAnimeList = (props) => {
@@ -10,6 +11,7 @@ const MyAnimeList = (props) => {
     const [searchTitle, setSearchTitle] = useState("");
     const [movie, setMovie] = useState(false);
     const [header, setHeader] = useState("Anime")
+    const [upvoted, setUpvoted] = useState({voted: false, notvoted: false});
     //const [animeId, setAnimeId] = useState(-1);
 
     //let nav = useNavigate();
@@ -19,6 +21,38 @@ const MyAnimeList = (props) => {
     useEffect(() => {
         retrieveAnimes(id);
     }, [movie]);
+
+    useEffect(() => {
+        if(!movie){
+            fetchAnimeVotes()
+                .then(res => {
+                    if (res){
+                        setUpvoted({...upvoted, voted: res.voted});
+                    } else {
+                        setUpvoted({voted: false, notvoted: false});
+                    }
+                    console.log(upvoted)
+                    console.log("useEffect ran")
+                })
+                .catch(err => {
+                    console.log(err)
+                });
+        } else {
+            fetchMovieVotes()
+                .then(res => {
+                    if (res){
+                        setUpvoted({...upvoted, voted: res.voted});
+                    } else {
+                        setUpvoted({voted: false, notvoted: false});
+                    }
+                    console.log(upvoted)
+                    console.log("useEffect ran")
+                })
+                .catch(err => {
+                    console.log(err)
+                });
+        }
+    },[currentIndex]);
 
     const handleAnime = () => {
         if(movie){
@@ -84,6 +118,7 @@ const MyAnimeList = (props) => {
         //         title: anime.title
         //     })}`
         // });
+
     };
 
     const removeAllAnimes = () => {
@@ -131,7 +166,55 @@ const MyAnimeList = (props) => {
         }
     };
 
+    const fetchAnimeVotes = async () => {
+        console.log("Fetiching votes for id: " + id + "and aid: "  + currentAnime.id);
+        const res = await AnimevoteService.getAll(id, currentAnime.id)
+            .then(response => {
+                console.log(response.data)
+                return response.data[0];
+            })
+            .catch(err => {
+                console.log(err)
+            });
+        
+        return res;
+    }
+
+    const fetchMovieVotes = async () => {
+        console.log("Fetiching votes for id: " + id + "and aid: "  + currentAnime.id);
+        const res = await AnimevoteService.getAll(id, currentAnime.id)
+            .then(response => {
+                console.log(response.data)
+                return response.data[0];
+            })
+            .catch(err => {
+                console.log(err)
+            });
+        
+        return res;
+    }
+
     const upVote = () => {
+
+
+        if(upvoted.voted){
+            return;
+        } else {
+            const data = {
+                userId: id,
+                animeId: currentAnime.id,
+                voted: true,
+                unvoted: false
+            }
+
+            AnimevoteService.create(data)
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }    
         currentAnime.votes = (parseInt(currentAnime.votes) + 1).toString();
         if(movie){
 
@@ -161,6 +244,18 @@ const MyAnimeList = (props) => {
     };
 
     const downVote = () => {
+
+        AnimevoteService.getAll(id, currentAnime.id)
+            .then(response => {
+                setUpvoted(response.data[0])
+            })
+            .catch(err => {
+                console.log(err)
+            });
+
+        if(upvoted.unvoted === true && upvoted === false){
+            return;
+        }
         if(parseInt(currentAnime.votes) < 1){
             return;
         }
@@ -179,6 +274,12 @@ const MyAnimeList = (props) => {
             retrieveAnimes(id);
             setActiveAnnime(currentAnime, currentIndex);
         } else {
+
+            // data = {
+            //     id: 
+            // }
+
+            //AnimevoteService.update
             currentAnime.votes = (parseInt(currentAnime.votes) - 1).toString();
 
             MyAnimeService.update(currentAnime.id, currentAnime)

@@ -28,6 +28,7 @@ db.myanime = require("../models/myanime.model.js")(sequelize, Sequelize);
 db.mymovie = require("../models/mymovie.model.js")(sequelize, Sequelize);
 db.animedata = require("../models/animedata.model.js")(sequelize, Sequelize);
 db.moviedata = require("../models/moviedata.model.js")(sequelize, Sequelize);
+db.animevote = require("../models/animevote.model.js")(sequelize, Sequelize);
 
 db.myanime.belongsTo(db.user, {
     foreignKey: "userId",
@@ -35,6 +36,14 @@ db.myanime.belongsTo(db.user, {
 
 db.mymovie.belongsTo(db.user, {
     foreignKey: "userId",
+});
+
+db.animevote.belongsTo(db.user, {
+    foreignKey: "userId",
+});
+
+db.animevote.belongsTo(db.myanime, {
+    foreignKey: "animeId",
 });
 
 db.role.belongsToMany(db.user, {
