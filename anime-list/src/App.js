@@ -19,6 +19,7 @@ import MyAnimeList from "./components/pages/MyAnimeList";
 import AddAnime from "./components/pages/AddAnime";
 import AddMyAnime from "./components/pages/AddMyAnime";
 import Footer from "./components/layout/Footer";
+import AllMovies from './components/pages/AllMovies';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
@@ -85,6 +86,7 @@ function App() {
         <div className="page-content">
           <Routes>
             <Route path='/' exact element={ <Home {...props} /> } />
+            <Route path='/allmovies' exact element={ <AllMovies {...props} /> } />
             <Route path='/animes/:id' element={ <Anime /> } />
             <Route path='/my-animes/:id' element={ <MyAnime /> } />
             <Route path='/my-movies/:id' element={ <MyMovie /> } />

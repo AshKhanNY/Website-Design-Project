@@ -523,6 +523,10 @@ section{
 /*TABLE*/
 .t-header, .row {
     display: flex;  /* aligns all child elements (flex items) in a row */
+    align-items: center;
+  }
+  .t-header{
+    justify-content: center;
   }
   
   .col {

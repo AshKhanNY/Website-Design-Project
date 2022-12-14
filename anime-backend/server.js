@@ -85,7 +85,7 @@ let csvStream2 = fastcsv
             port: 5432
         });
 
-        const query = "INSERT INTO moviedata (title, score, genre, image, created_at) VALUES ($1, $2, $3, $4, $5)";
+        const query = "INSERT INTO moviedata (title, year, score, genre, image, created_at) VALUES ($1, $2, $3, $4, $5, $6)";
 
         pool.connect((err, client, done) => {
             if (err) throw err;
