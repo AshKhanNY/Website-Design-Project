@@ -10,7 +10,8 @@ const MyAnime = (props) => {
   const initialAnimeState = {
     id: null,
     title: "",
-    description: "",
+    genre: "",
+    image: "",
     published: false
   };
 

@@ -183,37 +183,90 @@ const AnimeList = (props) => {
     };
 
     return (
-        <div className="list row">
-            <div className="col-md-8">
-                <div className="input-group mb-3">
-                    <input 
-                        type="text"
-                        className="form-control"
-                        placeholder="Search by title"
-                        value={searchTitle}
-                        onChange={onChangeSearchTitle}
-                    />
-                    <div>
-                        <button 
-                            className="btn btn-outline-dark"
-                            type="button"
-                            onClick={findByTitle}
-                        >
-                            Search
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div className="col-md-6">
+        <div>
+            <div>
+                <h4 className="ml-5">{header + " List"}</h4>
                 <button className={`ml-5 ui button " + ${movie ? "" : "primary"}`} onClick={handleAnime}>
                     Animes
                 </button>
                 <button className={"ml-2 ui button " + (movie ? "primary" : "")} onClick={handleMovie}>
                     Movies
                 </button>
-                <h4 className="ml-5">{header + " List"}</h4>
 
-                <ul>
+                {props.currentUser? (
+                <section className="my-sec">
+                    <header className="t-header ">
+                        <div className="col"><strong>Name</strong></div>
+                        <div className="col"></div>
+                        <div className="col"><strong>Genre</strong></div>
+                        <div className="col"><strong>Rating</strong></div>
+                        <div className="col"><strong>Details</strong></div>
+                    </header>
+                    {animes &&
+                     animes.sort((el1,el2) => el2.score.toString().localeCompare(el1.score.toString(), undefined, {numeric: true})).map((anime, index) =>
+                        <div className="row my-3 mx-1">
+                            <div className="col">{anime.title}</div>
+                            <div className="col"><img src={anime.image} width={200} height={230}/></div>
+                            <div className="col">{anime.genre}</div>
+                            <div className="col">{anime.score}</div>
+                            <div className="col">
+                                <h4>Anime</h4>
+                                <div>
+                                    <label>
+                                        <strong>Title:</strong>
+                                    </label>{" "}
+                                    {anime.title}
+                                </div>
+                                <div>
+                                    <label>
+                                        <strong>Status:</strong>
+                                    </label>{" "}
+                                    {anime.published ? "Published": "Pending"}
+                                </div>
+                                <div>
+                                    <label>
+                                        <strong>Votes:</strong>
+                                    </label>{" "}
+                                    {anime.votes}
+                                </div>
+                                <div className="badge badge-success mr-2 votes" onClick={()=> upVote(anime)}>
+                                    UPVOTE
+                                </div>
+                                <div className="badge badge-danger mr-2 votes" onClick={() => downVote(anime)}>
+                                    DOWNVOTE
+                                </div>
+                                    {props.showAdminBoard? (
+                                        <>
+                                            {movie ? (
+                                                <>
+                                                    <Link to={"/my-movies/" + anime.id} className="badge badge-warning">
+                                                        Edit
+                                                    </Link>
+                                                </>
+                                            ): (
+                                                <>
+
+                                                    <Link to={"/my-animes/" + anime.id} className="badge badge-warning">
+                                                        Edit
+                                                    </Link>
+                                                </>
+                                            )}
+
+                                        </> ): (
+                                            <>
+
+                                            </>
+                                    )}   
+                                        
+                                </div>
+                        </div>
+                    )}
+                </section>
+                ):(
+                <h3>Please login to access media</h3>
+                )}
+
+                {/* <ul>
                     {animes &&
                      animes.sort((el1,el2) => el2.votes.toString().localeCompare(el1.votes.toString(), undefined, {numeric: true})).map((anime, index) =>
                         <li key={index}
@@ -223,76 +276,11 @@ const AnimeList = (props) => {
                             {anime.title}
                         </li>
                      )}
-                </ul>
+                </ul> */}
 
                 <button className="m-3 btn btn-sm btn-danger" onClick={removeAllAnimes}>
                     Remove All
                 </button>
-            </div>
-            <div className="col-md-6">
-                {currentAnime ? (
-                    <div>
-                        <h4>{header}</h4>
-                        <div>
-                            <label>
-                                <strong>Title:</strong>
-                            </label>{" "}
-                            {currentAnime.title}
-                        </div>
-                        <div>
-                            <label>
-                                <strong>Description:</strong>
-                            </label>{" "}
-                            {currentAnime.description}
-                        </div>
-                        <div>
-                            <label>
-                                <strong>Status:</strong>
-                            </label>{" "}
-                            {currentAnime.published ? "Published": "Pending"}
-                        </div>
-                        <div>
-                            <label>
-                                <strong>Votes:</strong>
-                            </label>{" "}
-                            {currentAnime.votes}
-                        </div>
-                        <div className="badge badge-success mr-2 votes" onClick={upVote}>
-                            UPVOTE
-                        </div>
-                        <div className="badge badge-danger mr-2 votes" onClick={downVote}>
-                            DOWNVOTE
-                        </div>
-                        {props.showAdminBoard ? (
-                            <>
-                                {movie ? (
-                                    <>
-                                        <Link to={"/movies/" + currentAnime.id} className="badge badge-warning">
-                                            Edit
-                                        </Link>
-                                    </>
-                                ): (
-                                    <>
-
-                                        <Link to={"/animes/" + currentAnime.id} className="badge badge-warning">
-                                            Edit
-                                        </Link>
-                                    </>
-                                )}
-                                
-                            </> ):(
-                                    <>
-
-                                    </>
-   
-                            )}
-                    </div>
-                ):(
-                    <div>
-                        <br />
-                        <p>Please click on an {header} </p>
-                    </div>
-                )}
             </div>
         </div>
     );

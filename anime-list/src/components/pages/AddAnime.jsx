@@ -12,7 +12,9 @@ const AddAnime = () => {
     const initialAnimeState = {
         id: null,
         title: "",
-        description: "",
+        genre: "",
+        image: "",
+        score: "",
         published: false
     };
 
@@ -36,17 +38,19 @@ const AddAnime = () => {
     const saveAnime = () => {
         var data = {
             title: anime.title,
-            description: anime.description
+            genre: anime.genre,
+            image: anime.image,
+            score: anime.score
         };
 
         if(checkVal){
             MovieService.create(JSON.stringify(data))
             .then(response => {
                 setAnime({
-                    id : response.data.id,
-                    title: response.data.title,
-                    description: response.data.description,
-                    published: response.data.published
+                    title: anime.title,
+                    genre: anime.genre,
+                    image: anime.image,
+                    score: anime.score,
                 });
                 setSubmitted(true);
                 console.log(response.data);
@@ -58,10 +62,10 @@ const AddAnime = () => {
             AnimeService.create(JSON.stringify(data))
             .then(response => {
                 setAnime({
-                    id : response.data.id,
-                    title: response.data.title,
-                    description: response.data.description,
-                    published: response.data.published
+                    title: anime.title,
+                    genre: anime.genre,
+                    image: anime.image,
+                    score: anime.score,
                 });
                 setSubmitted(true);
                 console.log(response.data);
@@ -112,6 +116,43 @@ const AddAnime = () => {
                             value={anime.description}
                             onChange={handleInputChange}
                             name="description"
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="genre">Genre</label>
+                        <input 
+                            type="text"
+                            className="form-control"
+                            id="genre"
+                            required
+                            value={anime.genre}
+                            onChange={handleInputChange}
+                            name="genre"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="image">Image url</label>
+                        <input 
+                            type="text"
+                            className="form-control"
+                            id="image"
+                            required
+                            value={anime.image}
+                            onChange={handleInputChange}
+                            name="image"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="score">Score</label>
+                        <input 
+                            type="text"
+                            className="form-control"
+                            id="score"
+                            required
+                            value={anime.score}
+                            onChange={handleInputChange}
+                            name="score"
                         />
                     </div>
 
