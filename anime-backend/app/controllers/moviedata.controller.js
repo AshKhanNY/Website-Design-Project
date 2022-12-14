@@ -1,5 +1,5 @@
 const db = require("../models");
-const Moviedata = db.moviesdata;
+const Moviedata = db.moviedata;
 const Op = db.Sequelize.Op;
 
 
