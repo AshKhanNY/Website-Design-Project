@@ -31,7 +31,7 @@ const AllMovies = (props) => {
           <section>
               <header className="t-header ">
                 <div className="col"><strong>Name</strong></div>
-                <div className="col"><strong>Year</strong></div>
+                <div className="col"><strong>Image</strong></div>
                 <div className="col"></div>
                 <div className="col"><strong>Genre</strong></div>
                 <div className="col"><strong>Rating</strong></div>

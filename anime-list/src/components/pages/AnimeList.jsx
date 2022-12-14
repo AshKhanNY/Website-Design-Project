@@ -194,8 +194,8 @@ const AnimeList = (props) => {
                         onChange={onChangeSearchTitle}
                     />
                     <div>
-                        <button
-                            className="btn btn-outline-secondary"
+                        <button 
+                            className="btn btn-outline-dark"
                             type="button"
                             onClick={findByTitle}
                         >
