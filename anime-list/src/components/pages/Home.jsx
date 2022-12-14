@@ -56,7 +56,7 @@ const Home = (props) => {
   const delay = ms => new Promise(res => setTimeout(res, ms));
 
   const cleanUp = async () => {
-    await delay(9000);
+    await delay(3000);
     setSubmitted(false);
     setMessage("");
   }
