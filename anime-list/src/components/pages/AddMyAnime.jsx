@@ -9,7 +9,9 @@ const AddMyAnime = () => {
     const initialAnimeState = {
         id: null,
         title: "",
-        description: "",
+        genre: "",
+        image: "",
+        score: "",
         published: false
     };
 
@@ -34,7 +36,9 @@ const AddMyAnime = () => {
         
         var data = {
             title: anime.title,
-            description: anime.description,
+            genre: anime.genre,
+            image: anime.image,
+            score: anime.score,
             userId: user.id
         };
 
@@ -44,7 +48,9 @@ const AddMyAnime = () => {
                     setAnime({
                         id : response.data.id,
                         title: response.data.title,
-                        description: response.data.description,
+                        genre: response.data.genre,
+                        image: response.data.image,
+                        score: response.data.score,
                         published: response.data.published
                     });
                     setSubmitted(true);
@@ -59,7 +65,9 @@ const AddMyAnime = () => {
                     setAnime({
                         id : response.data.id,
                         title: response.data.title,
-                        description: response.data.description,
+                        genre: response.data.genre,
+                        image: response.data.image,
+                        score: response.data.score,
                         published: response.data.published
                     });
                     setSubmitted(true);
@@ -102,15 +110,39 @@ const AddMyAnime = () => {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="description">Description</label>
+                        <label htmlFor="genre">Genre</label>
                         <input 
                             type="text"
                             className="form-control"
-                            id="description"
+                            id="genre"
                             required
-                            value={anime.description}
+                            value={anime.genre}
                             onChange={handleInputChange}
-                            name="description"
+                            name="genre"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="image">Image url</label>
+                        <input 
+                            type="text"
+                            className="form-control"
+                            id="image"
+                            required
+                            value={anime.image}
+                            onChange={handleInputChange}
+                            name="image"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="score">Score</label>
+                        <input 
+                            type="text"
+                            className="form-control"
+                            id="score"
+                            required
+                            value={anime.score}
+                            onChange={handleInputChange}
+                            name="score"
                         />
                     </div>
 

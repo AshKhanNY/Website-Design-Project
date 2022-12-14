@@ -6,12 +6,18 @@ const create = (data) => {
 
 const getAll = (uid,aid) => {
     return http.get(`/animevote/${uid}/${aid}`);
-}
+};
+
+const update = (id, data) => {
+    console.log("Executing update service")
+    return http.put(`/animevote/${id}`, data);
+};
 
 
 const AnimevoteService = {
     getAll,
-    create
+    create,
+    update
 };
 
 

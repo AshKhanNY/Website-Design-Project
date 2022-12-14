@@ -52,6 +52,31 @@ exports.findAll = (req, res) => {
 };
 
 
+exports.update = (req, res) => {
+    const id = req.params.id;
+    
+    Animevote.update(req.body, {
+        where: {id: id}
+    })
+        .then(num => {
+            if (num == 1){
+                res.send({
+                    message: "Anime was updated successfully"
+                });
+            } else {
+                res.send({
+                    message: `Cannot update anime with id=${id}. Maybe it was not found.`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating anime with id=" + id
+            });
+        });
+};
+
+
 
 
 

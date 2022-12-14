@@ -10,5 +10,7 @@ module.exports = app => {
     // Retrieve all animes
     router.get("/:uid/:aid", movievote.findAll);
 
+    router.put("/:id", movievote.update);
+
     app.use("/api/movievote", router)
 };

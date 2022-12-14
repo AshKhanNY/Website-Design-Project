@@ -10,7 +10,8 @@ const MyMovie = (props) => {
   const initialAnimeState = {
     id: null,
     title: "",
-    description: "",
+    genre: "",
+    image: "",
     published: false
   };
 
@@ -44,7 +45,8 @@ const MyMovie = (props) => {
     var data = {
       id: currentAnime.id,
       title: currentAnime.title,
-      description: currentAnime.description,
+      genre: currentAnime.genre,
+      image: currentAnime.image,
       published: status
     };
 
@@ -99,13 +101,24 @@ const MyMovie = (props) => {
                 />
               </div>
               <div>
-                <label htmlFor="description">Description</label>
+                <label htmlFor="genre">genre</label>
                 <input 
                   type="text"
                   className="form-control"
-                  id="description"
-                  name="description"
-                  value={currentAnime.description}
+                  id="genre"
+                  name="genre"
+                  value={currentAnime.genre}
+                  onChange={handleInputChange}
+                />
+               </div>
+               <div>
+                <label htmlFor="image">Image url</label>
+                <input 
+                  type="text"
+                  className="form-control"
+                  id="image"
+                  name="image"
+                  value={currentAnime.image}
                   onChange={handleInputChange}
                 />
                </div>

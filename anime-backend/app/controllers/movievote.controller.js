@@ -51,6 +51,31 @@ exports.findAll = (req, res) => {
         });
 };
 
+// update an movie by the id in the request
+exports.update = (req, res) => {
+    const id = req.params.id;
+    
+    Movievote.update(req.body, {
+        where: {id: id}
+    })
+        .then(num => {
+            if (num == 1){
+                res.send({
+                    message: "Movie was updated successfully"
+                });
+            } else {
+                res.send({
+                    message: `Cannot update movie with id=${id}. Maybe it was not found.`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating movie with id=" + id
+            });
+        });
+};
+
 
 
 

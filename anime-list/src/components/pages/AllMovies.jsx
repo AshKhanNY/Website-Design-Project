@@ -71,7 +71,7 @@ const AllMovies = (props) => {
                 <div className="col"><strong>Rating</strong></div>
                 <div className="col"></div>
               </header>
-              {content && content.map((res, i) =>
+              {content && content.sort((el1,el2) => el2.score.toString().localeCompare(el1.score.toString(), undefined, {numeric: true})).map((res, index) =>
                 <div className="row my-3 mx-1">
                   <div className="col">{res.title}</div>
                   <div className="col"><img src={res.image} width={200} height={230}/></div>
