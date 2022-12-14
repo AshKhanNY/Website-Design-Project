@@ -16,7 +16,9 @@ exports.create = (req, res) =>{
     // if valid, create anime
     const anime = {
         title: req.body.title,
-        description: req.body.description,
+        image: req.body.image,
+        genre: req.body.genre,
+        score: req.body.score,
         published: req.body.published? req.body.published : false,
         userId: req.body.userId,
         votes: 0

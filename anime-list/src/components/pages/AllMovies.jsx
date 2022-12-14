@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 import MoviedataService from "../services/MoviedataService";
+import AuthService from "../services/auth.service";
+import MyMovieService from "../services/MyMovieService";
 
 const AllMovies = (props) => {
     const [content, setContent] = useState([]);
+    const [submitted, setSubmitted] = useState(false);
+    const [message, setMessage] = useState("false");
+    const user = AuthService.getCurrentUser();
 
     useEffect(() => {
         MoviedataService.getAll().then(
@@ -21,12 +26,41 @@ const AllMovies = (props) => {
     }, []);
 
 
-    const handleAdd = (res) => {
-      console.log(res);
-    }
+    const handleAdd = (anime) => {
+        
+      var data = {
+          title: anime.title,
+          image: anime.image,
+          genre: anime.genre,
+          score: anime.score,
+          userId: user.id
+      };
+
+      MyMovieService.create(JSON.stringify(data))
+          .then(response => {
+              setMessage("Movie added successfully")
+              setSubmitted(true);
+              console.log(response.data);
+          })
+          .catch(err => {
+              console.log(err);
+          });
+      
+          cleanUp();
+
+  };
+
+  const delay = ms => new Promise(res => setTimeout(res, ms));
+
+  const cleanUp = async () => {
+    await delay(3000);
+    setSubmitted(false);
+    setMessage("");
+  }
 
     return(
       <div>
+          <div className={(submitted ? "ui green message":"")}><p className="m-p">{message}</p></div>
         {props.currentUser? (
           <section className="my-sec">
               <header className="t-header ">
@@ -45,10 +79,10 @@ const AllMovies = (props) => {
                   <div className="col">{res.genre}</div>
                   <div className="col">{res.score}</div>
                   <div className="col">
-                    <div class="ui animated button" onClick={() => handleAdd(res)} tabindex="0">
-                      <div class="visible content">Add anime</div>
-                      <div class="hidden content">
-                        <i class="right arrow icon"></i>
+                    <div className="ui animated button" onClick={() => handleAdd(res)} tabIndex="0">
+                      <div className="visible content">Add movie</div>
+                      <div className="hidden content">
+                        <i className="right arrow icon"></i>
                       </div>
                     </div>
                   </div>

@@ -319,8 +319,8 @@ const MyAnimeList = (props) => {
     };
 
     return (
-        <div className="list row">
-            <div className="col-md-8">
+        <div>
+            {/* <div className="col-md-8">
                 <div className="input-group mb-3">
                     <input 
                         type="text"
@@ -339,17 +339,41 @@ const MyAnimeList = (props) => {
                         </button>
                     </div>
                 </div>
-            </div>
-            <div className="col-md-6">
+            </div> */}
+            <div>
+                <h4 className="ml-5">{header + " List"}</h4>
                 <button className={`ml-5 ui button " + ${movie ? "" : "primary"}`} onClick={handleAnime}>
                     Animes
                 </button>
                 <button className={"ml-2 ui button " + (movie ? "primary" : "")} onClick={handleMovie}>
                     Movies
                 </button>
-                <h4 className="ml-5">{header + " List"}</h4>
 
-                <ul>
+                {props.currentUser? (
+                <section className="my-sec">
+                    <header className="t-header ">
+                        <div className="col"><strong>Name</strong></div>
+                        <div className="col"></div>
+                        <div className="col"><strong>Genre</strong></div>
+                        <div className="col"><strong>Rating</strong></div>
+                        <div className="col"></div>
+                    </header>
+                    {animes &&
+                     animes.sort((el1,el2) => el2.votes.toString().localeCompare(el1.votes.toString(), undefined, {numeric: true})).map((anime, index) =>
+                        <div className="row my-3 mx-1">
+                            <div className="col">{anime.title}</div>
+                            <div className="col"><img src={anime.image} width={200} height={230}/></div>
+                            <div className="col">{anime.genre}</div>
+                            <div className="col">{anime.score}</div>
+                            <div className="col"></div>
+                        </div>
+                    )}
+                </section>
+                ):(
+                <h3>Please login to access media</h3>
+                )}
+
+                {/* <ul>
                     {animes &&
                      animes.sort((el1,el2) => el2.votes.toString().localeCompare(el1.votes.toString(), undefined, {numeric: true})).map((anime, index) =>
                         <li key={index}
@@ -359,13 +383,13 @@ const MyAnimeList = (props) => {
                             {anime.title}
                         </li>
                      )}
-                </ul>
+                </ul> */}
 
                 <button className="m-3 btn btn-sm btn-danger" onClick={removeAllAnimes}>
                     Remove All
                 </button>
             </div>
-            <div className="col-md-6">
+            <div>
                 {currentAnime ? (
                     <div>
                         <h4>Anime</h4>
@@ -425,8 +449,8 @@ const MyAnimeList = (props) => {
                     </div>
                 ):(
                     <div>
-                        <br />
-                        <p>Please click on an {header} </p>
+                        {/* <br />
+                        <p>Please click on an {header} </p> */}
                     </div>
                 )}
             </div>

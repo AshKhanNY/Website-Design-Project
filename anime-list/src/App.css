@@ -532,4 +532,13 @@ section{
   .col {
     flex: 1;        /* distributes space on the line equally among items */
   }
+
+  .my-sec{
+    padding-left: 2rem;
+    padding-top: 2rem;
+  }
+
+  .m-p{
+    text-align: center;
+  }
 /*END of TABLE*/
