@@ -5,9 +5,9 @@ const getAll = () => {
     return http.get("/moviedata");
 };
 
-const AnimedataService = {
+const MoviedataService = {
     getAll
 };
 
 
-export default AnimedataService;
+export default MoviedataService;

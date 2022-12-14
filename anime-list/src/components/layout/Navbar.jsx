@@ -38,7 +38,7 @@ const Navbar = (props) =>{
                                 <div className="primary-link" data-nav>
                                     <i className="caret square right icon"></i>
                                     <section className="l-section">
-                                        <a href="/home" className="primary-link-text" data-nav>Movies</a>
+                                        <a href="/allmovies" className="primary-link-text" data-nav>Movies</a>
                                         <div className="secondary-links" data-nav>
                                             <a href="/" className="primary-link-text disabled" data-nav>Top movies</a>
                                         </div>
