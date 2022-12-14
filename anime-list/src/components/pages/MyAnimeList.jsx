@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import MyAnimeService from "../services/MyAnimeService";
 import MyMovieService from "../services/MyMovieService";
 import AnimevoteService from "../services/AnimevoteService";
+import MovievoteService from "../services/MovievoteService";
 import { Link, useParams } from "react-router-dom";
+import Movie from "./Movie";
 
 const MyAnimeList = (props) => {
     const [animes, setAnimes] = useState([]);
@@ -181,8 +183,8 @@ const MyAnimeList = (props) => {
     }
 
     const fetchMovieVotes = async () => {
-        console.log("Fetiching votes for id: " + id + "and aid: "  + currentAnime.id);
-        const res = await AnimevoteService.getAll(id, currentAnime.id)
+        console.log("Fetiching votes for movies id: " + id + "and aid: "  + currentAnime.id);
+        const res = await MovievoteService.getAll(id, currentAnime.id)
             .then(response => {
                 console.log(response.data)
                 return response.data[0];
@@ -200,20 +202,41 @@ const MyAnimeList = (props) => {
         if(upvoted.voted){
             return;
         } else {
-            const data = {
-                userId: id,
-                animeId: currentAnime.id,
-                voted: true,
-                unvoted: false
-            }
 
-            AnimevoteService.create(data)
-                .then(response => {
-                    console.log(response.data);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+            if(movie) {
+                const data = {
+                    userId: id,
+                    movieId: currentAnime.id,
+                    voted: true,
+                    unvoted: false
+                }
+
+
+                MovievoteService.create(data)
+                    .then(response => {
+                        console.log(response.data);
+                        setUpvoted({voted: true, notvoted: false});
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            } else {
+                const data = {
+                    userId: id,
+                    animeId: currentAnime.id,
+                    voted: true,
+                    unvoted: false
+                }
+
+                AnimevoteService.create(data)
+                    .then(response => {
+                        console.log(response.data);
+                        setUpvoted({voted: true, notvoted: false});
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
         }    
         currentAnime.votes = (parseInt(currentAnime.votes) + 1).toString();
         if(movie){
