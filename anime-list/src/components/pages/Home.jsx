@@ -90,8 +90,11 @@ const Home = (props) => {
                 </div>
               )}
           </section>
-        ):(
-          <h1>Please login to access media</h1>
+        ):( 
+          <div>
+          <h1><center>Please login to access media</center></h1>
+          <center><img src={'https://t3.ftcdn.net/jpg/04/87/16/34/360_F_487163480_u4q13pQTIIbcVbolPiHKZFFlkfVrnVP3.jpg'}/> </center>
+          </div>
         )}
       </div>
     );
