@@ -208,6 +208,7 @@ const MyAnimeList = (props) => {
 
     const upVote = async (currentAnime) => {
         console.log("upvoted: " + upvoted.voted)
+        setCurrentAnime(currentAnime);
 
 
         if(upvoted.voted){
@@ -262,7 +263,7 @@ const MyAnimeList = (props) => {
                 //     .catch(err => {
                 //         console.log(err);
                 //     });
-                updateMovieVote();
+                await updateMovieVote();
             } else {
                 // upvoteData.voted = !upvoteData.voted
                 // upvoteData.unvoted = !upvoteData.unvoted
@@ -275,7 +276,7 @@ const MyAnimeList = (props) => {
                 //         console.log(err);
                 //     });
 
-                updateAniVote();
+                await updateAniVote();
             }
         }    
         currentAnime.votes = (parseInt(currentAnime.votes) + 1).toString();
@@ -322,7 +323,7 @@ const MyAnimeList = (props) => {
 
     const castMovieVote = async (id, ani) => {
         console.log("Fetiching votes for movies id: " + id + "and aid: "  + ani.id);
-        await MyMovieService.update(currentAnime.id, ani)
+        await MyMovieService.update(id, ani)
             .then(response => {
             console.log(response.data);
             })
@@ -346,6 +347,8 @@ const MyAnimeList = (props) => {
 
     const downVote = async (currentAnime) => {
 
+        setCurrentAnime(currentAnime);
+
         if(parseInt(currentAnime.votes) < 1){
             console.log("votes less than 1")
             return;
@@ -360,7 +363,7 @@ const MyAnimeList = (props) => {
                 upvoteData.voted = !upvoteData.voted
                 upvoteData.unvoted = !upvoteData.unvoted
 
-                MovievoteService.update(upvoteData.id, upvoteData)
+                await MovievoteService.update(upvoteData.id, upvoteData)
                     .then(response => {
                         console.log(response.data);
                     })
@@ -372,7 +375,7 @@ const MyAnimeList = (props) => {
                 upvoteData.unvoted = !upvoteData.unvoted
 
 
-                AnimevoteService.update(upvoteData.id, upvoteData)
+                await AnimevoteService.update(upvoteData.id, upvoteData)
                     .then(response => {
                         console.log(response.data);
                     })
