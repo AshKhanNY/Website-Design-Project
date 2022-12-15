@@ -56,14 +56,14 @@ const Home = (props) => {
   const delay = ms => new Promise(res => setTimeout(res, ms));
 
   const cleanUp = async () => {
-    await delay(3000);
+    await delay(1500);
     setSubmitted(false);
     setMessage("");
   }
 
     return(
       <div>
-          <div className={(submitted ? "ui green message":"")}><p className="m-p">{message}</p></div>
+          <div className={(submitted ? "ui green message ani":"ani")}><p className="m-p">{message}</p></div>
         {props.currentUser? (
           <section>
               <header className="t-header ">

@@ -53,7 +53,7 @@ const AllMovies = (props) => {
   const delay = ms => new Promise(res => setTimeout(res, ms));
 
   const cleanUp = async () => {
-    await delay(3000);
+    await delay(1500);
     setSubmitted(false);
     setMessage("");
   }

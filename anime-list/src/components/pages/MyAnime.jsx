@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import MyAnimeService from '../services/MyAnimeService';
+import AuthService from "../services/auth.service";
 
 const MyAnime = (props) => {
 
   const { id } = useParams();
   let navigate = useNavigate();
+
+  const user = AuthService.getCurrentUser();
 
   const initialAnimeState = {
     id: null,
@@ -76,7 +79,7 @@ const MyAnime = (props) => {
     MyAnimeService.remove(currentAnime.id)
       .then(response => {
         console.log(response.data);
-        navigate("/my-list");
+        navigate("/myplist/"+user.id);
       })
       .catch(err => {
         console.log(err);
@@ -101,7 +104,7 @@ const MyAnime = (props) => {
                 />
               </div>
               <div>
-                <label htmlFor="genre">Description</label>
+                <label htmlFor="genre">Genre</label>
                 <input 
                   type="text"
                   className="form-control"
@@ -132,14 +135,14 @@ const MyAnime = (props) => {
             </form>
 
             {currentAnime.published? (
-              <button className="badge badge-primary mr-2" onClick={() => updatePublished(false)}>Unpublish</button>
+              <button className="ui primary basic button mr-2" onClick={() => updatePublished(false)}>Unpublish</button>
             ):(
-              <button className="badge badge-primary mr-2" onClick={() => updatePublished(true)}>Publish</button>
+              <button className="ui primary basic button mr-2" onClick={() => updatePublished(true)}>Publish</button>
             )}
 
-            <button className="badge badge-danger mr-2" onClick={deleteAnime}>Delete</button>
+            <button className="ui negative basic button mr-2" onClick={deleteAnime}>Delete</button>
 
-            <button type="submit" className="badge badge-success" onClick={updateAnime}>Update</button>
+            <button type="submit" className="ui positive basic button" onClick={updateAnime}>Update</button>
             <div class={(message === "" ? "":"ui green message")}><p>{message}</p></div>
           </div>
         ) : (

@@ -542,3 +542,11 @@ section{
     text-align: center;
   }
 /*END of TABLE*/
+
+/*
+message
+*/
+
+.ani{
+    transition: height 20s !important;
+}

@@ -229,24 +229,24 @@ const AnimeList = (props) => {
                                     </label>{" "}
                                     {anime.votes}
                                 </div>
-                                <div className="badge badge-success mr-2 votes" onClick={()=> upVote(anime)}>
+                                <div className="ui positive basic button mr-2 votes" onClick={()=> upVote(anime)}>
                                     UPVOTE
                                 </div>
-                                <div className="badge badge-danger mr-2 votes" onClick={() => downVote(anime)}>
+                                <div className="ui negative basic button mr-2 votes" onClick={() => downVote(anime)}>
                                     DOWNVOTE
                                 </div>
                                     {props.showAdminBoard? (
                                         <>
                                             {movie ? (
                                                 <>
-                                                    <Link to={"/my-movies/" + anime.id} className="badge badge-warning">
+                                                    <Link to={"/movies/" + anime.id} className="ui yellow basic button">
                                                         Edit
                                                     </Link>
                                                 </>
                                             ): (
                                                 <>
 
-                                                    <Link to={"/my-animes/" + anime.id} className="badge badge-warning">
+                                                    <Link to={"/animes/" + anime.id} className="ui yellow basic button">
                                                         Edit
                                                     </Link>
                                                 </>

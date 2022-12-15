@@ -14,7 +14,7 @@ const MyAnimeList = (props) => {
     const [movie, setMovie] = useState(false);
     const [header, setHeader] = useState("Anime")
     const [upvoted, setUpvoted] = useState({voted: false, notvoted: false});
-    const [upvoteData, setUpvoteData] = useState(null);
+    const [upvoteData, setUpvoteData] = useState({voted: false});
     //const [animeId, setAnimeId] = useState(-1);
 
     //let nav = useNavigate();
@@ -245,7 +245,7 @@ const MyAnimeList = (props) => {
             }
         } else {
             res = await fetchAnimeVotes(currentAnime);
-            setUpvoteData(res)
+            setUpvoteData(res);
             if(res) {
                 setUpvoted({voted: res.voted, notvoted: res.unvoted});
             }
@@ -253,7 +253,9 @@ const MyAnimeList = (props) => {
 
 
 
-        if(upvoted.voted){
+        console.log("val of upvotes");
+        console.log(upvoted.voted);
+        if(upvoteData.voted){
             console.log("returning");
             return;
         } else if(upvoted.voted === false && upvoted.notvoted === false) {
@@ -267,7 +269,7 @@ const MyAnimeList = (props) => {
                 }
 
 
-                MovievoteService.create(data)
+                await MovievoteService.create(data)
                     .then(response => {
                         console.log(response.data);
                         setUpvoted({voted: true, notvoted: false});
@@ -283,7 +285,7 @@ const MyAnimeList = (props) => {
                     unvoted: false
                 }
 
-                AnimevoteService.create(data)
+                await AnimevoteService.create(data)
                     .then(response => {
                         console.log(response.data);
                         setUpvoted({voted: true, notvoted: false});
@@ -517,7 +519,7 @@ const MyAnimeList = (props) => {
                             <div className="col">{anime.genre}</div>
                             <div className="col">{anime.score}</div>
                             <div className="col">
-                                <h4>Anime</h4>
+                                <h4>{header}</h4>
                                 <div>
                                     <label>
                                         <strong>Title:</strong>
@@ -536,22 +538,22 @@ const MyAnimeList = (props) => {
                                     </label>{" "}
                                     {anime.votes}
                                 </div>
-                                <div className="badge badge-success mr-2 votes" onClick={()=> upVote(anime)}>
+                                <div className="ui positive basic button mr-2 votes" onClick={async ()=> await upVote(anime)}>
                                     UPVOTE
                                 </div>
-                                <div className="badge badge-danger mr-2 votes" onClick={() => downVote(anime)}>
+                                <div className="ui positive negative basic button mr-2 votes" onClick={async () => await downVote(anime)}>
                                     DOWNVOTE
                                 </div>
                                     {movie ? (
                                         <>
-                                            <Link to={"/my-movies/" + anime.id} className="badge badge-warning">
+                                            <Link to={"/my-movies/" + anime.id} className="ui yellow basic button">
                                                 Edit
                                             </Link>
                                         </>
                                     ): (
                                         <>
 
-                                            <Link to={"/my-animes/" + anime.id} className="badge badge-warning">
+                                            <Link to={"/my-animes/" + anime.id} className="ui yellow basic button">
                                                 Edit
                                             </Link>
                                         </>

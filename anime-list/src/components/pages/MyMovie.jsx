@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import MyMovieService from '../services/MyMovieService';
+import AuthService from "../services/auth.service";
 
 const MyMovie = (props) => {
 
   const { id } = useParams();
   let navigate = useNavigate();
+  const user = AuthService.getCurrentUser();
 
   const initialAnimeState = {
     id: null,
@@ -76,7 +78,7 @@ const MyMovie = (props) => {
     MyMovieService.remove(currentAnime.id)
       .then(response => {
         console.log(response.data);
-        navigate("/my-list");
+        navigate("/myplist/"+user.id);
       })
       .catch(err => {
         console.log(err);
@@ -132,14 +134,14 @@ const MyMovie = (props) => {
             </form>
 
             {currentAnime.published? (
-              <button className="badge badge-primary mr-2" onClick={() => updatePublished(false)}>Unpublish</button>
+              <button className="ui primary basic button mr-2" onClick={() => updatePublished(false)}>Unpublish</button>
             ):(
-              <button className="badge badge-primary mr-2" onClick={() => updatePublished(true)}>Publish</button>
+              <button className="ui primary basic button mr-2" onClick={() => updatePublished(true)}>Publish</button>
             )}
 
-            <button className="badge badge-danger mr-2" onClick={deleteAnime}>Delete</button>
+            <button className="ui negative basic button mr-2" onClick={deleteAnime}>Delete</button>
 
-            <button type="submit" className="badge badge-success" onClick={updateAnime}>Update</button>
+            <button type="submit" className="ui positive basic button" onClick={updateAnime}>Update</button>
             <div class={(message === "" ? "":"ui green message")}><p>{message}</p></div>
           </div>
         ) : (

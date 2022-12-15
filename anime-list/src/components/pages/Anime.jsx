@@ -10,7 +10,9 @@ const Anime = (props) => {
   const initialAnimeState = {
     id: null,
     title: "",
-    description: "",
+    genre: "",
+    image: "",
+    score: "",
     published: false,
     votes: 0
   };
@@ -98,13 +100,36 @@ const Anime = (props) => {
                 />
               </div>
               <div>
-                <label htmlFor="description">Description</label>
+                <label htmlFor="genre">Genre</label>
                 <input 
                   type="text"
                   className="form-control"
-                  id="description"
-                  name="description"
-                  value={currentAnime.description}
+                  id="genre"
+                  name="genre"
+                  value={currentAnime.genre}
+                  onChange={handleInputChange}
+                />
+               </div>
+              <div>
+                <label htmlFor="image">Image Url</label>
+                <input 
+                  type="text"
+                  className="form-control"
+                  id="image"
+                  name="image"
+                  value={currentAnime.image}
+                  onChange={handleInputChange}
+                />
+               </div>
+
+               <div>
+                <label htmlFor="score">Score</label>
+                <input 
+                  type="text"
+                  className="form-control"
+                  id="score"
+                  name="score"
+                  value={currentAnime.score}
                   onChange={handleInputChange}
                 />
                </div>
@@ -118,14 +143,14 @@ const Anime = (props) => {
             </form>
 
             {currentAnime.published? (
-              <button className="badge badge-primary mr-2" onClick={() => updatePublished(false)}>Unpublish</button>
+              <button className="ui primary basic button mr-2" onClick={() => updatePublished(false)}>Unpublish</button>
             ):(
-              <button className="badge badge-primary mr-2" onClick={() => updatePublished(true)}>Publish</button>
+              <button className="ui primary basic button mr-2" onClick={() => updatePublished(true)}>Publish</button>
             )}
 
-            <button className="badge badge-danger mr-2" onClick={deleteAnime}>Delete</button>
+            <button className="ui negative basic button mr-2" onClick={deleteAnime}>Delete</button>
 
-            <button type="submit" className="badge badge-success" onClick={updateAnime}>Update</button>
+            <button type="submit" className="ui positive basic button" onClick={updateAnime}>Update</button>
             <div class={(message === "" ? "":"ui green message")}><p>{message}</p></div>
           </div>
         ) : (

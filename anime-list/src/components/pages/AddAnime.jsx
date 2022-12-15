@@ -107,19 +107,6 @@ const AddAnime = () => {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="description">Description</label>
-                        <input 
-                            type="text"
-                            className="form-control"
-                            id="description"
-                            required
-                            value={anime.description}
-                            onChange={handleInputChange}
-                            name="description"
-                        />
-                    </div>
-
-                    <div className="form-group">
                         <label htmlFor="genre">Genre</label>
                         <input 
                             type="text"

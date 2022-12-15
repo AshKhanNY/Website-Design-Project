@@ -1,14 +1,14 @@
 import http from "../../http-common";
 
-const create = (data) => {
+const create = async (data) => {
     return http.post("/animevote", data);
 };
 
-const getAll = (uid,aid) => {
+const getAll = async (uid,aid) => {
     return http.get(`/animevote/${uid}/${aid}`);
 };
 
-const update = (id, data) => {
+const update = async (id, data) => {
     console.log("Executing update service")
     return http.put(`/animevote/${id}`, data);
 };
