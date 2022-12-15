@@ -24,6 +24,12 @@ html{
     background-repeat: no-repeat;
   }
 
+  .profile_image {
+    background-image: url("https://www.pngfind.com/pngs/m/102-1028932_swirl-png-image-background-designs-in-white-background.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
   .sign_up_image {
     background-image: url("https://wallpaperaccess.com/full/37945.jpg");
     background-size: cover;
