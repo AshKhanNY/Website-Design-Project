@@ -29,40 +29,29 @@ const MyAnimeList = (props) => {
         console.log("rendenring usefffect")
     }, [animes]);
 
-    // useEffect(() => {
-    //     if(!movie){
-    //         fetchAnimeVotes()
-    //             .then(res => {
-    //                 if (res){
-    //                     setUpvoted({ voted: res.voted, notvoted: res.unvoted });
-    //                     setUpvoteData(res);
-    //                 } else {
-    //                     console.log("no response")
-    //                     setUpvoted({voted: false, notvoted: false});
-    //                 }
-    //                 console.log(upvoted)
-    //                 console.log("useEffect ran")
-    //             })
-    //             .catch(err => {
-    //                 console.log(err)
-    //             });
-    //     } else {
-    //         fetchMovieVotes()
-    //             .then(res => {
-    //                 if (res){
-    //                     setUpvoted({...upvoted, voted: res.voted});
-    //                     setUpvoteData(res);
-    //                 } else {
-    //                     setUpvoted({voted: false, notvoted: false});
-    //                 }
-    //                 console.log(upvoted)
-    //                 console.log("useEffect ran")
-    //             })
-    //             .catch(err => {
-    //                 console.log(err)
-    //             });
-    //     }
-    // },[currentAnime]);
+    useEffect(() => {
+        if(movie){
+            (async() => {
+                const res = await fetchMovieVotes(currentAnime);
+                if(res !== []){
+                    setUpvoteData(res);
+                    setUpvoted({voted: res.voted, notvoted: res.unvoted})
+                }
+            })();
+        } else {
+            (async() => {
+                const res = await fetchAnimeVotes(currentAnime);
+                if(res !== []){
+                    setUpvoteData(res);
+                    setUpvoted({voted: res.voted, notvoted: res.unvoted})
+                }
+            })();
+        }
+
+        return () => {
+            //gets called when component unmounts
+        }
+    },[currentAnime]);
 
     const handleAnime = () => {
         if(movie){
@@ -230,26 +219,27 @@ const MyAnimeList = (props) => {
     }
 
     const upVote = async (currentAnime) => {
-        var res = {}
+        //var res = {}
 
         console.log("upvoted: " + upvoted.voted);
         setCurrentAnime(currentAnime);
 
-        console.log(currentAnime)
+        console.log("currentAnime Set");
+        console.log(upvoteData);
 
-        if(movie){
-            res = await fetchMovieVotes(currentAnime);
-            setUpvoteData(res);
-            if (res){;
-                setUpvoted({voted: res.voted, notvoted: res.unvoted});
-            }
-        } else {
-            res = await fetchAnimeVotes(currentAnime);
-            setUpvoteData(res);
-            if(res) {
-                setUpvoted({voted: res.voted, notvoted: res.unvoted});
-            }
-        }
+        // if(movie){
+        //     res = await fetchMovieVotes(currentAnime);
+        //     setUpvoteData(res);
+        //     if (res){;
+        //         setUpvoted({voted: res.voted, notvoted: res.unvoted});
+        //     }
+        // } else {
+        //     res = await fetchAnimeVotes(currentAnime);
+        //     setUpvoteData(res);
+        //     if(res) {
+        //         setUpvoted({voted: res.voted, notvoted: res.unvoted});
+        //     }
+        // }
 
 
 
@@ -391,23 +381,23 @@ const MyAnimeList = (props) => {
 
     const downVote = async (currentAnime) => {
 
-        var res ={};
+        //var res ={};
         
         setCurrentAnime(currentAnime);
         
-        if(movie){
-            res = await fetchMovieVotes(currentAnime);
-            setUpvoteData(res);
-            if (res){;
-                setUpvoted({voted: res.voted, notvoted: res.unvoted});
-            }
-        } else {
-            res = await fetchAnimeVotes(currentAnime);
-            setUpvoteData(res);
-            if(res) {
-                setUpvoted({voted: res.voted, notvoted: res.unvoted});
-            }
-        }
+        // if(movie){
+        //     res = await fetchMovieVotes(currentAnime);
+        //     setUpvoteData(res);
+        //     if (res){;
+        //         setUpvoted({voted: res.voted, notvoted: res.unvoted});
+        //     }
+        // } else {
+        //     res = await fetchAnimeVotes(currentAnime);
+        //     setUpvoteData(res);
+        //     if(res) {
+        //         setUpvoted({voted: res.voted, notvoted: res.unvoted});
+        //     }
+        // }
 
 
         setCurrentAnime(currentAnime);
@@ -425,10 +415,10 @@ const MyAnimeList = (props) => {
             return;
         } else{
             if(movie){
-                res.voted = !res.voted
-                res.unvoted = !res.unvoted
+                upvoteData.voted = !upvoteData.voted
+                upvoteData.unvoted = !upvoteData.unvoted
 
-                await MovievoteService.update(res.id, res)
+                await MovievoteService.update(upvoteData.id, upvoteData)
                     .then(response => {
                         console.log(response.data);
                     })
@@ -436,11 +426,11 @@ const MyAnimeList = (props) => {
                         console.log(err);
                     });
             } else {
-                res.voted = !res.voted
-                res.unvoted = !res.unvoted
+                upvoteData.voted = !upvoteData.voted
+                upvoteData.unvoted = !upvoteData.unvoted
 
 
-                await AnimevoteService.update(res.id, res)
+                await AnimevoteService.update(upvoteData.id, upvoteData)
                     .then(response => {
                         console.log(response.data);
                     })
