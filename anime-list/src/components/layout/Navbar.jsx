@@ -23,7 +23,7 @@ const Navbar = (props) =>{
                 <a href="/" className="logo link-active"><img src="/logo.png" width={100} height={80}/></a>
                 <div className="links" data-nav>
                     <span className="browse-wrap" data-nav>
-                        <Link to="/search" className="link" data-nav>Search</Link>
+                        <Link to="/" className="link" data-nav>Search</Link>
                         <div className="dropdown" data-nav>
                             <div className="primary-links" data-nav>
                                 <div className="primary-link" data-nav>

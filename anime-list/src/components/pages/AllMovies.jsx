@@ -6,7 +6,7 @@ import MyMovieService from "../services/MyMovieService";
 const AllMovies = (props) => {
     const [content, setContent] = useState([]);
     const [submitted, setSubmitted] = useState(false);
-    const [message, setMessage] = useState("false");
+    const [message, setMessage] = useState("");
     const user = AuthService.getCurrentUser();
 
     useEffect(() => {
@@ -90,7 +90,7 @@ const AllMovies = (props) => {
               )}
           </section>
         ):(
-          <h3>Please login to access media</h3>
+          <h1>Please login to access media</h1>
         )}
       </div>
     );

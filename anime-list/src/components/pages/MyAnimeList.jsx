@@ -26,6 +26,10 @@ const MyAnimeList = (props) => {
     }, [movie]);
 
     useEffect(() => {
+        console.log("rendenring usefffect")
+    }, [animes]);
+
+    useEffect(() => {
         if(!movie){
             fetchAnimeVotes()
                 .then(res => {
@@ -85,12 +89,12 @@ const MyAnimeList = (props) => {
         setSearchTitle(searchTitle);
     };
 
-    const retrieveAnimes = (id) => {
+    const retrieveAnimes = async (id) => {
 
         console.log("retriebing")
         
         if(movie){
-            MyMovieService.getAll(id)
+            await MyMovieService.getAll(id)
                 .then(response => {
                     setAnimes(response.data);
                     console.log(response.data);
@@ -99,7 +103,7 @@ const MyAnimeList = (props) => {
                     console.log(err);
                 });
         } else {
-            MyAnimeService.getAll(id)
+            await MyAnimeService.getAll(id)
                 .then(response => {
                     setAnimes(response.data);
                     console.log(response.data);
@@ -202,16 +206,12 @@ const MyAnimeList = (props) => {
         return res;
     }
 
-    const setAni = async (ani) => {
-        setCurrentAnime(ani);
-    }
-
-    const upVote = (currentAnime) => {
-        setAni(currentAnime);
+    const upVote = async (currentAnime) => {
         console.log("upvoted: " + upvoted.voted)
 
 
         if(upvoted.voted){
+            console.log("returning");
             return;
         } else if(upvoted.voted === false && upvoted.notvoted === false) {
 
@@ -252,65 +252,105 @@ const MyAnimeList = (props) => {
         } else {
             //if it is not a new entry
             if(movie){
-                upvoteData.voted = !upvoteData.voted
-                upvoteData.unvoted = !upvoteData.unvoted
+                // upvoteData.voted = !upvoteData.voted
+                // upvoteData.unvoted = !upvoteData.unvoted
 
-                MovievoteService.update(upvoteData.id, upvoteData)
-                    .then(response => {
-                        console.log(response.data);
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
+                // MovievoteService.update(upvoteData.id, upvoteData)
+                //     .then(response => {
+                //         console.log(response.data);
+                //     })
+                //     .catch(err => {
+                //         console.log(err);
+                //     });
+                updateMovieVote();
             } else {
-                upvoteData.voted = !upvoteData.voted
-                upvoteData.unvoted = !upvoteData.unvoted
+                // upvoteData.voted = !upvoteData.voted
+                // upvoteData.unvoted = !upvoteData.unvoted
 
-                AnimevoteService.update(upvoteData.id, upvoteData)
-                    .then(response => {
-                        console.log(response.data);
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
+                // AnimevoteService.update(upvoteData.id, upvoteData)
+                //     .then(response => {
+                //         console.log(response.data);
+                //     })
+                //     .catch(err => {
+                //         console.log(err);
+                //     });
+
+                updateAniVote();
             }
         }    
         currentAnime.votes = (parseInt(currentAnime.votes) + 1).toString();
+        console.log("this is the current anime")
+        console.log(currentAnime)
         if(movie){
 
-            MyMovieService.update(currentAnime.id, currentAnime)
-                .then(response => {
-                console.log(response.data);
-                })
-                .catch(err => {
-                console.log(err);
-                });
+            await castMovieVote(currentAnime.id, currentAnime);
 
-            retrieveAnimes(id);
-            setActiveAnnime(currentAnime, currentIndex);
         } else {
 
-            MyAnimeService.update(currentAnime.id, currentAnime)
-                .then(response => {
-                console.log(response.data);
-                })
-                .catch(err => {
-                console.log(err);
-                });
-
-            retrieveAnimes(id);
+            console.log("votes in curent anime")
+            console.log(currentAnime);
+            await castAniVote(currentAnime.id, currentAnime);
             //setActiveAnnime(currentAnime, currentIndex);
         }
+
+        retrieveAnimes(id);
     };
 
-    const downVote = (currentAnime) => {
+    const updateAniVote = async () =>{
+        upvoteData.voted = !upvoteData.voted
+        upvoteData.unvoted = !upvoteData.unvoted
+        await AnimevoteService.update(upvoteData.id, upvoteData)
+            .then(response => {
+                console.log(response.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+    const updateMovieVote = async () => {
+        upvoteData.voted = !upvoteData.voted
+        upvoteData.unvoted = !upvoteData.unvoted
+        await MovievoteService.update(upvoteData.id, upvoteData)
+            .then(response => {
+                console.log(response.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+    const castMovieVote = async (id, ani) => {
+        console.log("Fetiching votes for movies id: " + id + "and aid: "  + ani.id);
+        await MyMovieService.update(currentAnime.id, ani)
+            .then(response => {
+            console.log(response.data);
+            })
+            .catch(err => {
+            console.log(err);
+            });
+            
+    }
+
+    const castAniVote = async (id, ani) => {
+        console.log("Fetiching votes for movies id: " + id + "and aid: "  + ani.id);
+        await MyAnimeService.update(id, ani)
+            .then(response => {
+            console.log("anime vote was casted")
+            console.log(response.data);
+            })
+            .catch(err => {
+            console.log(err);
+            });
+    }
+
+    const downVote = async (currentAnime) => {
 
         if(parseInt(currentAnime.votes) < 1){
             console.log("votes less than 1")
             return;
         }
 
-        setAni(currentAnime);
         console.log(currentAnime);
 
         if(upvoted.notvoted === true && upvoted.voted === false){
@@ -345,16 +385,8 @@ const MyAnimeList = (props) => {
         if(movie){
             currentAnime.votes = (parseInt(currentAnime.votes) - 1).toString();
 
-            MyMovieService.update(currentAnime.id, currentAnime)
-                .then(response => {
-                console.log(response.data);
-                })
-                .catch(err => {
-                console.log(err);
-                });
+            await castMovieVote(currentAnime.id, currentAnime);
 
-            retrieveAnimes(id);
-            setActiveAnnime(currentAnime, currentIndex);
         } else {
 
             // data = {
@@ -364,17 +396,11 @@ const MyAnimeList = (props) => {
             //AnimevoteService.update
             currentAnime.votes = (parseInt(currentAnime.votes) - 1).toString();
 
-            MyAnimeService.update(currentAnime.id, currentAnime)
-                .then(response => {
-                console.log(response.data);
-                })
-                .catch(err => {
-                console.log(err);
-                });
-
-            retrieveAnimes(id);
+            await castAniVote(currentAnime.id, currentAnime);
             //setActiveAnnime(currentAnime, currentIndex);
         }
+
+        retrieveAnimes(id);
     };
 
     return (
